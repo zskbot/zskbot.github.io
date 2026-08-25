@@ -2,7 +2,7 @@ name: Deploy Public Folder to Pages
 
 on:
   push:
-    branches: [ "main" ] # Hoặc đổi thành "master" nếu repo của bạn dùng master
+    branches: [ "main" ] # Đổi thành "master" nếu bạn dùng master
 
 permissions:
   contents: read
@@ -21,18 +21,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        # Thay cho actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        # Thay cho actions/configure-pages@v5
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b 
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        # Thay cho actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dee4966286e9 
         with:
-          # Ép GitHub Pages chỉ lấy dữ liệu bên trong thư mục public của bạn
+          # Chỉ định đưa thư mục public lên trang web
           path: './public'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        # Thay cho actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ad5ed86f2b6a8737221803cf87cf287 
         
