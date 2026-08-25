@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080a0d">
+<title>Design — KIO AI Workspace</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<div id="app">
+
+<header class="topbar">
+  <button class="hamburger" id="menuBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="brand">
+    <div class="brand-symbol">
+      <i></i><i></i>
+    </div>
+    <b>DESIGN<span>.AI</span></b>
+  </div>
+
+  <div class="history">
+    <button>‹</button>
+    <button>›</button>
+  </div>
+
+  <div class="global-search">
+    <span>⌕</span>
+    <input id="globalSearch" placeholder="Search workspace..." />
+    <kbd>CTRL K</kbd>
+  </div>
+
+  <div class="top-actions">
+    <button class="upgrade">Upgrade Plan</button>
+    <button class="top-icon">+</button>
+    <button class="top-icon">◫</button>
+    <button class="top-icon">♟</button>
+    <button class="avatar">K</button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-head">
+      <span>WORKSPACE</span>
+      <button id="closeMenu">×</button>
+    </div>
+
+    <nav class="nav">
+
+      <div class="nav-section">MAIN</div>
+
+      <button class="nav-item active" data-page="dashboard">
+        <span>⌂</span>
+        <b>Dashboard</b>
+      </button>
+
+      <button class="nav-item" data-page="copilot">
+        <span>✦</span>
+        <b>AI Co-Pilot</b>
+        <em>AI</em>
+      </button>
+
+      <button class="nav-item" data-page="projects">
+        <span>▦</span>
+        <b>Projects</b>
+      </button>
+
+      <div class="nav-section">DEVELOPER</div>
+
+      <button class="nav-item" data-page="endpoints">
+        <span>⌁</span>
+        <b>API Endpoints</b>
+      </button>
+
+      <button class="nav-item" data-page="keys">
+        <span>♢</span>
+        <b>API Keys</b>
+      </button>
+
+      <button class="nav-item" data-page="models">
+        <span>◇</span>
+        <b>Models</b>
+      </button>
+
+      <button class="nav-item" data-page="usage">
+        <span>◒</span>
+        <b>Usage</b>
+      </button>
+
+      <button class="nav-item" data-page="logs">
+        <span>≡</span>
+        <b>Logs</b>
+      </button>
+
+      <div class="nav-section">RESOURCES</div>
+
+      <button class="nav-item" data-page="docs">
+        <span>▤</span>
+        <b>Documentation</b>
+      </button>
+
+      <button class="nav-item" data-page="settings">
+        <span>⚙</span>
+        <b>Settings</b>
+      </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="connection">
+        <i></i>
+        <span>System Operational</span>
+      </div>
+
+      <div class="profile">
+        <div class="avatar large">K</div>
+        <div>
+          <b>KIO Developer</b>
+          <small>Free Workspace</small>
+        </div>
+        <span>⋮</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="overlay" id="overlay"></div>
+
+  <main class="content">
+
+    <!-- DASHBOARD -->
+    <section class="page active" id="page-dashboard">
+
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">WORKSPACE</span>
+          <h1>Dashboard</h1>
+          <p>Build, test and manage your AI products from one workspace.</p>
+        </div>
+        <button class="primary" data-page-action="copilot">Open Co-Pilot →</button>
+      </div>
+
+      <div class="hero-dashboard">
+        <div>
+          <span class="hero-label">DESIGN × AI</span>
+          <h2>Where <i>Design</i> Meets<br><i>Dev</i> in Real-Time</h2>
+          <p>Plan your product, generate code, connect APIs and ship faster with your AI development workspace.</p>
+          <div class="hero-actions">
+            <button class="primary" data-page-action="copilot">Start with AI</button>
+            <button class="secondary" data-page-action="projects">View Projects</button>
+          </div>
+        </div>
+
+        <div class="hero-orb">
+          <div class="orb-ring ring1"></div>
+          <div class="orb-ring ring2"></div>
+          <div class="orb-core">KIO</div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <div>
+          <span class="eyebrow">OVERVIEW</span>
+          <h3>Workspace Activity</h3>
+        </div>
+        <button class="ghost" data-page-action="logs">View logs →</button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat">
+          <span>PROJECTS</span>
+          <strong>12</strong>
+          <small>+3 this month</small>
+        </div>
+        <div class="stat">
+          <span>API REQUESTS</span>
+          <strong>48.2K</strong>
+          <small>+18.4%</small>
+        </div>
+        <div class="stat">
+          <span>AI TOKENS</span>
+          <strong>1.84M</strong>
+          <small>62% of limit</small>
+        </div>
+        <div class="stat">
+          <span>UPTIME</span>
+          <strong>99.98%</strong>
+          <small>Operational</small>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- COPILOT -->
+    <section class="page" id="page-copilot">
+
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">AI DEVELOPMENT</span>
+          <h1>AI Co-Pilot</h1>
+          <p>Your intelligent workspace for building and debugging software.</p>
+        </div>
+        <div class="model-status">
+          <i></i> KIO Large
+        </div>
+      </div>
+
+      <div class="copilot-layout">
+
+        <aside class="file-panel">
+          <div class="mini-title">EXPLORER</div>
+
+          <div class="tree-row selected">▾ MyProject</div>
+          <div class="tree-row indent">▾ apps</div>
+          <div class="tree-row indent2">▱ api</div>
+          <div class="tree-row indent2">▱ web</div>
+          <div class="tree-row">▱ components</div>
+          <div class="tree-row">▱ lib</div>
+          <div class="tree-row file">♣ .env</div>
+          <div class="tree-row file">◇ .gitignore</div>
+          <div class="tree-row file">⬡ package.json</div>
+          <div class="tree-row file">M README.md</div>
+          <div class="tree-row file">TS tsconfig.json</div>
+        </aside>
+
+        <div class="copilot-center">
+          <div class="copilot-robot">
+            <div class="robot-glow"></div>
+            <div class="robot-head">
+              <div class="robot-face"><i></i><i></i></div>
+            </div>
+            <div class="robot-body"></div>
+          </div>
+
+          <span class="copilot-label">KIO COPILOT</span>
+          <h2>What are we building?</h2>
+          <p>Ask KIO to create, modify, debug or explain anything in your project.</p>
+
+          <div class="suggestions">
+            <button>Build a landing page</button>
+            <button>Create an API endpoint</button>
+            <button>Debug my project</button>
+            <button>Explain this code</button>
+          </div>
+
+          <div class="copilot-input">
+            <textarea id="copilotInput" placeholder="Ask KIO anything about your project..."></textarea>
+            <div class="input-bottom">
+              <div>
+                <button>+ Attach</button>
+                <button>KIO Large⌄</button>
+              </div>
+              <button class="send" id="copilotSend">➤</button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="context-panel">
+          <div class="mini-title">CONTEXT</div>
+          <div class="context-card">
+            <span>PROJECT</span>
+            <b>MyProject</b>
+          </div>
+          <div class="context-card">
+            <span>BRANCH</span>
+            <b>main</b>
+          </div>
+          <div class="context-card">
+            <span>FILES</span>
+            <b>24 files</b>
+          </div>
+          <div class="context-card">
+            <span>MODEL</span>
+            <b>KIO Large</b>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="page" id="page-projects">
+
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">WORKSPACE</span>
+          <h1>Projects</h1>
+          <p>Manage all your applications and development environments.</p>
+        </div>
+        <button class="primary">+ New Project</button>
+      </div>
+
+      <div class="toolbar">
+        <div class="table-search">⌕ <input placeholder="Search projects..."></div>
+        <button class="secondary">All Projects⌄</button>
+      </div>
+
+      <div class="project-grid">
+        <div class="project-card">
+          <div class="project-top"><span class="project-icon">D</span><span class="online">●</span></div>
+          <h3>Design</h3>
+          <p>AI development workspace</p>
+          <div class="project-meta"><span>main</span><span>Updated 2m ago</span></div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-top"><span class="project-icon purple">K</span><span class="online">●</span></div>
+          <h3>KIO API</h3>
+          <p>AI API platform</p>
+          <div class="project-meta"><span>main</span><span>Updated 1h ago</span></div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-top"><span class="project-icon orange">C</span><span class="online">●</span></div>
+          <h3>CodeGrid</h3>
+          <p>Mobile web IDE</p>
+          <div class="project-meta"><span>develop</span><span>Updated yesterday</span></div>
+        </div>
+
+        <div class="project-card new-card">
+          <strong>+</strong>
+          <span>Create New Project</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- API ENDPOINTS -->
+    <section class="page" id="page-endpoints">
+
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">DEVELOPER API</span>
+          <h1>API Endpoints</h1>
+          <p>Manage, test and monitor your KIO API endpoints.</p>
+        </div>
+        <button class="primary">+ Create Endpoint</button>
+      </div>
+
+      <div class="toolbar">
+        <div class="table-search">⌕ <input placeholder="Search endpoints..."></div>
+        <div class="filter-tabs">
+          <button class="active">ALL</button>
+          <button>GET</button>
+          <button>POST</button>
+          <button>ERROR</button>
+        </div>
+      </div>
+
+      <div class="endpoint-list">
+
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <div class="endpoint-main">
+            <b>/v1/models</b>
+            <small>List available AI models</small>
+          </div>
+          <span class="status-dot">●</span>
+          <span class="latency">24ms</span>
+          <button class="more">⋮</button>
+        </div>
+
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <div class="endpoint-main">
+            <b>/v1/chat/completions</b>
+            <small>Generate AI responses</small>
+          </div>
+          <span class="status-dot">●</span>
+          <span class="latency">428ms</span>
+          <button class="more">⋮</button>
+        </div>
+
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <div class="endpoint-main">
+            <b>/v1/generate</b>
+            <small>Generate content</small>
+          </div>
+          <span class="status-dot">●</span>
+          <span class="latency">612ms</span>
+          <button class="more">⋮</button>
+        </div>
+
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <div class="endpoint-main">
+            <b>/v1/usage</b>
+            <small>API usage statistics</small>
+          </div>
+          <span class="status-dot">●</span>
+          <span class="latency">31ms</span>
+          <button class="more">⋮</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- API KEYS -->
+    <section class="page" id="page-keys">
+
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">SECURITY</span>
+          <h1>API Keys</h1>
+          <p>Create and manage credentials for your applications.</p>
+        </div>
+        <button class="primary">+ Create API Key</button>
+      </div>
+
+      <div class="warning">
+        <span>!</span>
+        <div><b>Keep your API keys secure.</b><small>Never expose secret keys in client-side code or public repositories.</small></div>
+      </div>
+
+      <div class="key-list">
+        <div class="key-row">
+          <div><b>Production Key</b><small>Created Aug 24, 2026</small></div>
+          <code>kio_live_••••••••••••4f91</code>
+          <span class="key-active">ACTIVE</span>
+          <button>Copy</button>
+          <button>⋮</button>
+        </div>
+        <div class="key-row">
+          <div><b>Development Key</b><small>Created Aug 20, 2026</small></div>
+          <code>kio_test_••••••••••••a821</code>
+          <span class="key-active">ACTIVE</span>
+          <button>Copy</button>
+          <button>⋮</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODELS -->
+    <section class="page" id="page-models">
+
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">AI PLATFORM</span>
+          <h1>Models</h1>
+          <p>Choose the intelligence that powers your applications.</p>
+        </div>
+      </div>
+
+      <div class="model-grid">
+
+        <div class="model-card featured">
+          <div class="model-icon">K</div>
+          <span class="model-tag">RECOMMENDED</span>
+          <h3>KIO Large</h3>
+          <p>Advanced reasoning and software development.</p>
+          <div class="model-info"><span>128K Context</span><span>Fast</span></div>
+          <button class="primary full">Use Model</button>
+        </div>
+
+        <div class="model-card">
+          <div class="model-icon purple">K</div>
+          <h3>KIO Fast</h3>
+          <p>Low-latency model for everyday tasks.</p>
+          <div class="model-info"><span>64K Context</span><span>Ultra Fast</span></div>
+          <button class="secondary full">Select</button>
+        </div>
+
+        <div class="model-card">
+          <div class="model-icon blue">C</div>
+          <h3>Code Expert</h3>
+          <p>Specialized coding and debugging model.</p>
+          <div class="model-info"><span>128K Context</span><span>Code</span></div>
+          <button class="secondary full">Select</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- USAGE -->
+    <section class="page" id="page-usage">
+
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">ANALYTICS</span>
+          <h1>Usage</h1>
+          <p>Monitor your API requests and AI consumption.</p>
+        </div>
+        <button class="secondary">Last 30 Days⌄</button>
+      </div>
+
+      <div class="usage-grid">
+        <div class="usage-card"><span>REQUESTS</span><strong>48,291</strong><small>+18.4%</small></div>
+        <div class="usage-card"><span>TOKENS</span><strong>1.84M</strong><small>+12.8%</small></div>
+        <div class="usage-card"><span>AVG LATENCY</span><strong>284ms</strong><small>-8.2%</small></div>
+        <div class="usage-card"><span>ERROR RATE</span><strong>0.12%</strong><small>Healthy</small></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-head"><div><span class="eyebrow">REQUEST VOLUME</span><h3>API Requests</h3></div><span>48.2K total</span></div>
+        <div class="chart">
+          <div class="bars"><i style="height:35%"></i><i style="height:52%"></i><i style="height:45%"></i><i style="height:68%"></i><i style="height:55%"></i><i style="height:78%"></i><i style="height:65%"></i><i style="height:91%"></i><i style="height:72%"></i><i style="height:84%"></i><i style="height:76%"></i><i style="height:96%"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGS -->
+    <section class="page" id="page-logs">
+
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">OBSERVABILITY</span>
+          <h1>Logs</h1>
+          <p>Realtime activity from your AI and API infrastructure.</p>
+        </div>
+        <button class="secondary">Clear Logs</button>
+      </div>
+
+      <div class="logs">
+        <div class="log-head"><span>TIME</span><span>METHOD</span><span>ENDPOINT</span><span>STATUS</span><span>LATENCY</span></div>
+        <div class="log"><span>22:28:41</span><span class="method post">POST</span><span>/v1/chat/completions</span><b>200</b><span>428ms</span></div>
+        <div class="log"><span>22:28:37</span><span class="method get">GET</span><span>/v1/models</span><b>200</b><span>24ms</span></div>
+        <div class="log"><span>22:27:59</span><span class="method post">POST</span><span>/v1/generate</span><b>200</b><span>612ms</span></div>
+        <div class="log"><span>22:27:44</span><span class="method get">GET</span><span>/v1/usage</span><b>200</b><span>31ms</span></div>
+        <div class="log error"><span>22:26:18</span><span class="method post">POST</span><span>/v1/chat/completions</span><b>429</b><span>82ms</span></div>
+      </div>
+    </section>
+
+    <!-- DOCS -->
+    <section class="page" id="page-docs">
+
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">DEVELOPER RESOURCES</span>
+          <h1>Documentation</h1>
+          <p>Everything you need to build with the Design AI platform.</p>
+        </div>
+      </div>
+
+      <div class="docs-layout">
+        <aside class="docs-nav">
+          <b>GETTING STARTED</b>
+          <button class="selected">Introduction</button>
+          <button>Quickstart</button>
+          <button>Authentication</button>
+          <b>API REFERENCE</b>
+          <button>Chat Completions</button>
+          <button>Models</button>
+          <button>Usage</button>
+          <b>GUIDES</b>
+          <button>AI Co-Pilot</button>
+          <button>Webhooks</button>
+        </aside>
+
+        <article class="docs-content">
+          <span class="eyebrow">INTRODUCTION</span>
+          <h2>Build with Design AI</h2>
+          <p>Design gives developers a unified AI workspace for creating, testing and deploying intelligent applications.</p>
+          <h3>Authentication</h3>
+          <p>Every API request requires a valid API key. Include your key in the Authorization header.</p>
+          <pre>Authorization: Bearer kio_live_your_api_key</pre>
+          <h3>Make your first request</h3>
+          <pre>curl https://api.kio.ai/v1/models \
+  -H "Authorization: Bearer $KIO_API_KEY"</pre>
+        </article>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="page" id="page-settings">
+
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">WORKSPACE</span>
+          <h1>Settings</h1>
+          <p>Configure your Design workspace.</p>
+        </div>
+        <button class="primary">Save Changes</button>
+      </div>
+
+      <div class="settings-layout">
+        <aside class="settings-nav">
+          <button class="selected">General</button>
+          <button>Appearance</button>
+          <button>AI Models</button>
+          <button>Security</button>
+          <button>Notifications</button>
+        </aside>
+
+        <div class="settings-content">
+
+          <div class="setting-section">
+            <span class="eyebrow">GENERAL</span>
+            <h3>Workspace Information</h3>
+
+            <label>Workspace Name<input value="Design"></label>
+            <label>Workspace ID<input value="design-workspace" disabled></label>
+          </div>
+
+          <div class="setting-section">
+            <span class="eyebrow">APPEARANCE</span>
+            <h3>Interface</h3>
+
+            <div class="setting-line">
+              <div><b>Dark Mode</b><small>Use the dark developer interface.</small></div>
+              <div class="toggle on"></div>
+            </div>
+
+            <div class="setting-line">
+              <div><b>Compact UI</b><small>Reduce spacing across the workspace.</small></div>
+              <div class="toggle"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast">Saved</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
