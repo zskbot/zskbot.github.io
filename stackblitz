@@ -1,0 +1,12 @@
+import sdk from '@stackblitz/sdk'
+
+sdk.embedProjectId(
+  'elementOrId',
+  'stackblitz-webcontainer-api-starter-akhtzscx',
+  {
+    forceEmbedLayout: true,
+    openFile: 'README.md',
+    theme: 'dark',
+    clickToLoad: true,
+  }
+);
