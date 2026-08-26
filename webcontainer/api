@@ -1,0 +1,6 @@
+import { auth } from '@webcontainer/api';
+
+auth.init({
+  clientId: 'wc_api_zskbot_5e7024d4970c7124eb8d1ef7d5f5337c',
+  scope: '',
+});
