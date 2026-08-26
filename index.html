@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gezsk Ai — Tài liệu dự án</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --ink:#0b0e13;
+    --panel:#12151c;
+    --line:#1e2330;
+    --text-primary:#e7eaf0;
+    --text-muted:#8891a6;
+    --signal:#4fe0c4;
+    --warn:#f5a623;
+  }
+  body{ font-family:'Inter',sans-serif; background:var(--ink); color:var(--text-primary); overflow-x:hidden; }
+  .font-display{ font-family:'Space Grotesk',sans-serif; }
+  .font-mono{ font-family:'JetBrains Mono',monospace; }
+  ::-webkit-scrollbar{ width:4px; }
+  ::-webkit-scrollbar-track{ background:var(--ink); }
+  ::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
+
+  /* Signature element: circuit-pulse background on hero */
+  .circuit-bg{
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 42px 42px;
+    background-position: -1px -1px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 90%);
+  }
+  .pulse-dot{
+    width:7px; height:7px; border-radius:9999px; background:var(--signal);
+    box-shadow:0 0 0 0 rgba(79,224,196,.6);
+    animation: pulse 2s infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .pulse-dot{ animation:none; } }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(79,224,196,.5); }
+    70%{ box-shadow:0 0 0 8px rgba(79,224,196,0); }
+    100%{ box-shadow:0 0 0 0 rgba(79,224,196,0); }
+  }
+  .flow-dot{
+    animation: flow 2.4s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .flow-dot{ animation:none; } }
+  @keyframes flow{
+    0%{ offset-distance:0%; opacity:0; }
+    8%{ opacity:1; }
+    92%{ opacity:1; }
+    100%{ offset-distance:100%; opacity:0; }
+  }
+  .searchable-item{ transition: opacity .15s ease; }
+  .searchable-item.is-hidden{ opacity:.15; pointer-events:none; }
+
+  /* Signature mark: ^_ — caret + terminal cursor, the project's glyph */
+  .mark-cursor{ animation: cursor-blink 1.15s steps(1,end) infinite; }
+  @media (prefers-reduced-motion: reduce){ .mark-cursor{ animation:none; } }
+  @keyframes cursor-blink{
+    0%, 45%{ opacity:1; }
+    50%, 95%{ opacity:.12; }
+    100%{ opacity:1; }
+  }
+  .mark-badge{
+    background:
+      radial-gradient(120% 140% at 30% 0%, rgba(79,224,196,.14), transparent 55%),
+      #0d1210;
+  }
+
+  /* Metric ticks for the scale section */
+  .tick-bar{ background: repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 8px); }
+
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline:2px solid var(--signal); outline-offset:2px; border-radius:4px;
+  }
+</style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- TOP NAVIGATION -->
+  <header class="sticky top-0 z-50 w-full border-b border-[var(--line)] bg-[var(--ink)]/85 backdrop-blur-md px-4 sm:px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <button id="menuToggle" class="md:hidden text-zinc-400 hover:text-white p-1" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="sidebar">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/></svg>
+      </button>
+      <svg class="w-8 h-8 text-[var(--signal)] mark-badge rounded-[9px]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Biểu tượng Gezsk Ai: dấu mũ và con trỏ terminal">
+        <rect x="6" y="6" width="88" height="88" rx="20" stroke="currentColor" stroke-width="6"/>
+        <path d="M32 46 L50 28 L68 46" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect class="mark-cursor" x="30" y="64" width="40" height="9" rx="2" fill="currentColor"/>
+      </svg>
+      <span class="text-lg font-display font-bold tracking-tight text-white">Gezsk Ai <span class="text-[var(--text-muted)] font-normal text-sm">/ docs</span></span>
+    </div>
+
+    <div class="relative w-full max-w-[15rem] sm:max-w-xs hidden sm:block">
+      <input type="text" id="searchInput" placeholder="Tìm tài liệu... (Ctrl + K)"
+        class="w-full bg-[var(--panel)] border border-[var(--line)] rounded-md pl-9 pr-3 py-1.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-[var(--signal)] transition-colors">
+      <svg class="w-4 h-4 text-zinc-500 absolute left-3 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.604 10.604Z"/></svg>
+    </div>
+  </header>
+
+  <div class="flex flex-1 max-w-7xl w-full mx-auto relative min-w-0">
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="w-64 shrink-0 border-r border-[var(--line)] p-6 space-y-6 text-sm
+      fixed md:sticky top-[65px] md:top-[65px] left-0 h-[calc(100vh-65px)] bg-[var(--ink)] z-40
+      -translate-x-full md:translate-x-0 transition-transform duration-200 overflow-y-auto">
+      <div class="space-y-2">
+        <div class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider font-mono">Bắt đầu</div>
+        <a href="#introduction" class="block text-zinc-200 hover:text-white font-medium py-1">Giới thiệu</a>
+        <a href="#architecture" class="block text-zinc-400 hover:text-white py-1">Kiến trúc hệ thống</a>
+        <a href="#features" class="block text-zinc-400 hover:text-white py-1">Tính năng cốt lõi</a>
+      </div>
+      <div class="space-y-2">
+        <div class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider font-mono">Tích hợp</div>
+        <a href="#quickstart" class="block text-zinc-400 hover:text-white py-1">Thiết lập backend</a>
+        <a href="#security" class="block text-zinc-400 hover:text-white py-1">Bảo mật API key</a>
+        <a href="#integrations" class="block text-zinc-400 hover:text-white py-1">Đối tác &amp; tích hợp</a>
+      </div>
+      <div class="space-y-2">
+        <div class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider font-mono">Mở rộng</div>
+        <a href="#scale" class="block text-zinc-400 hover:text-white py-1">Quy mô &amp; hạ tầng</a>
+        <a href="#roadmap" class="block text-zinc-400 hover:text-white py-1">Lộ trình phát triển</a>
+      </div>
+    </aside>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-30 hidden md:hidden"></div>
+
+    <!-- MAIN -->
+    <main class="flex-1 min-w-0 px-5 sm:px-8 md:px-12 py-10 space-y-16 max-w-3xl w-full">
+      <nav class="text-[13px] text-[var(--text-muted)] flex items-center gap-2 font-mono">
+        <span>Trên trang này</span><span>&rsaquo;</span><span class="text-zinc-200">Tổng quan dự án</span>
+      </nav>
+
+      <!-- HERO -->
+      <section id="introduction" class="searchable-item relative">
+        <div class="absolute inset-0 -z-10 circuit-bg opacity-40 h-64"></div>
+        <svg class="w-14 h-14 text-[var(--signal)] mark-badge rounded-[13px] mb-5" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="6" y="6" width="88" height="88" rx="20" stroke="currentColor" stroke-width="6"/>
+          <path d="M32 46 L50 28 L68 46" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect class="mark-cursor" x="30" y="64" width="40" height="9" rx="2" fill="currentColor"/>
+        </svg>
+        <div class="flex items-center gap-2 text-xs font-mono text-[var(--signal)] mb-4">
+          <span class="pulse-dot"></span> v1.0.0 · Bản phát hành đầu tiên
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-display font-bold tracking-tight text-white mb-4">Gezsk Ai Workspace</h1>
+        <p class="text-[var(--text-muted)] text-[15px] leading-relaxed max-w-xl mb-2">
+          Không gian làm việc kết nối agent, skill và các API AI của bên thứ ba (ví dụ: Anthropic API) thông qua một backend trung gian —
+          để trình duyệt của người dùng không bao giờ cần biết đến API key thật.
+        </p>
+        <p class="text-zinc-600 text-[13px] font-mono">
+          Biểu tượng <span class="text-[var(--signal)]">^_</span> — điểm chèn lệnh đang chờ, ẩn dụ cho một hệ thống luôn sẵn sàng thực thi.
+        </p>
+      </section>
+
+      <!-- ARCHITECTURE -->
+      <section id="architecture" class="space-y-5">
+        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
+          <span class="w-1 h-3.5 bg-[var(--signal)] rounded-sm"></span> Kiến trúc hệ thống
+        </h2>
+        <p class="text-zinc-400 text-[14px] leading-relaxed">
+          Nguyên tắc cốt lõi: <span class="text-white">API key của bên thứ ba chỉ tồn tại trên server của bạn</span>, không bao giờ xuất hiện trong mã nguồn frontend, kể cả ở dạng comment hay biến ẩn.
+        </p>
+
+        <!-- signature: animated request flow diagram -->
+        <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-6">
+          <svg viewBox="0 0 600 120" class="w-full h-auto">
+            <defs>
+              <path id="flowPath" d="M 60 60 L 300 60 L 300 60 L 540 60" fill="none"/>
+            </defs>
+            <line x1="60" y1="60" x2="300" y2="60" stroke="#1e2330" stroke-width="2"/>
+            <line x1="300" y1="60" x2="540" y2="60" stroke="#1e2330" stroke-width="2"/>
+
+            <circle cx="60" cy="60" r="26" fill="#0d1116" stroke="#2a3040" stroke-width="2"/>
+            <text x="60" y="64" text-anchor="middle" fill="#e7eaf0" font-size="9" font-family="JetBrains Mono">Trình duyệt</text>
+
+            <rect x="270" y="34" width="60" height="52" rx="8" fill="#0d1116" stroke="#2a3040" stroke-width="2"/>
+            <text x="300" y="64" text-anchor="middle" fill="#e7eaf0" font-size="9" font-family="JetBrains Mono">Backend</text>
+
+            <circle cx="540" cy="60" r="26" fill="#0d1116" stroke="#f5a623" stroke-width="2"/>
+            <text x="540" y="58" text-anchor="middle" fill="#e7eaf0" font-size="8" font-family="JetBrains Mono">API</text>
+            <text x="540" y="69" text-anchor="middle" fill="#e7eaf0" font-size="8" font-family="JetBrains Mono">bên thứ 3</text>
+
+            <circle r="4" fill="#4fe0c4" style="offset-path:path('M 60 60 L 300 60'); offset-rotate:0deg;" class="flow-dot"/>
+            <circle r="4" fill="#f5a623" style="offset-path:path('M 300 60 L 540 60'); offset-rotate:0deg;" class="flow-dot" opacity="0"/>
+          </svg>
+          <p class="text-xs text-zinc-500 font-mono mt-2">Yêu cầu đi qua backend — API key (chấm màu hổ phách) chỉ di chuyển ở chặng phía trong, không bao giờ tới trình duyệt.</p>
+        </div>
+      </section>
+
+      <!-- FEATURES -->
+      <section id="features" class="space-y-5 searchable-item">
+        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
+          <span class="w-1 h-3.5 bg-[var(--signal)] rounded-sm"></span> Tính năng cốt lõi
+        </h2>
+        <p class="text-zinc-400 text-[14px] leading-relaxed">
+          Ba khối chức năng đứng độc lập nhưng chia sẻ chung một backend — mỗi khối mở rộng được riêng khi dự án lớn dần.
+        </p>
+        <div class="grid sm:grid-cols-3 gap-3">
+          <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4 space-y-2">
+            <svg class="w-4 h-4 text-[var(--signal)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23-.696L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
+            <h3 class="text-sm font-semibold text-white">Agent runtime</h3>
+            <p class="text-xs text-zinc-500 leading-relaxed">Điều phối nhiều agent chạy song song, mỗi agent gọi backend riêng để lấy kết quả từ mô hình AI.</p>
+          </div>
+          <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4 space-y-2">
+            <svg class="w-4 h-4 text-[var(--signal)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3M6 3.75h12a2.25 2.25 0 0 1 2.25 2.25v12a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6A2.25 2.25 0 0 1 6 3.75Z"/></svg>
+            <h3 class="text-sm font-semibold text-white">Thư viện skill</h3>
+            <p class="text-xs text-zinc-500 leading-relaxed">Skill được nạp theo yêu cầu, đóng gói quy trình lặp lại thay vì viết lại logic mỗi lần.</p>
+          </div>
+          <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4 space-y-2">
+            <svg class="w-4 h-4 text-[var(--signal)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 15.75h.007v.008H12v-.008Z"/></svg>
+            <h3 class="text-sm font-semibold text-white">Nhật ký &amp; giám sát</h3>
+            <p class="text-xs text-zinc-500 leading-relaxed">Mọi lệnh gọi đi qua backend đều được ghi log — theo dõi chi phí và lỗi theo thời gian thực.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUICKSTART -->
+      <section id="quickstart" class="space-y-4">
+        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
+          <span class="w-1 h-3.5 bg-white/70 rounded-sm"></span> Thiết lập backend (Node.js)
+        </h2>
+        <p class="text-zinc-400 text-[14px] leading-relaxed">Cài biến môi trường trên server — không đưa vào commit hay file public.</p>
+
+        <div class="bg-[#0f1116] border border-[var(--line)] rounded-lg overflow-hidden shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 border-b border-[var(--line)]">
+            <div class="flex gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#2c2c2c]"></span><span class="w-2 h-2 rounded-full bg-[#2c2c2c]"></span><span class="w-2 h-2 rounded-full bg-[#2c2c2c]"></span>
+            </div>
+            <span class="text-[11px] font-mono text-zinc-600">.env</span>
+          </div>
+          <div class="p-4 font-mono text-[13px] leading-relaxed relative overflow-x-auto">
+            <span id="codeToCopy" class="hidden">THIRD_PARTY_API_KEY=your_actual_key_here</span>
+            <p class="text-zinc-600 whitespace-nowrap pr-16"># Biến môi trường phía server, KHÔNG commit lên git</p>
+            <p class="whitespace-nowrap pr-16"><span class="text-[var(--signal)]">THIRD_PARTY_API_KEY</span>=<span class="text-amber-300">your_actual_key_here</span></p>
+            <button onclick="copyCodeFunction()" id="copyBtn" class="absolute top-4 right-4 bg-[#1a1a1a] hover:bg-zinc-800 text-zinc-400 hover:text-white px-2.5 py-1 rounded text-xs transition-all flex items-center gap-1 border border-[#262626]">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-[#0f1116] border border-[var(--line)] rounded-lg overflow-hidden shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 border-b border-[var(--line)]">
+            <div class="flex gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#2c2c2c]"></span><span class="w-2 h-2 rounded-full bg-[#2c2c2c]"></span><span class="w-2 h-2 rounded-full bg-[#2c2c2c]"></span>
+            </div>
+            <span class="text-[11px] font-mono text-zinc-600">server.js</span>
+          </div>
+          <pre class="p-4 font-mono text-[12.5px] leading-relaxed text-zinc-300 overflow-x-auto"><span class="text-zinc-600">// Backend gọi API bên thứ 3 — key đọc từ biến môi trường</span>
+app.post(<span class="text-amber-300">'/api/chat'</span>, async (req, res) => {
+  <span class="text-purple-400">const</span> r = <span class="text-purple-400">await</span> fetch(<span class="text-amber-300">'https://api.example-provider.com/v1/messages'</span>, {
+    method: <span class="text-amber-300">'POST'</span>,
+    headers: { <span class="text-amber-300">'Authorization'</span>: <span class="text-amber-300">`Bearer ${process.env.THIRD_PARTY_API_KEY}`</span> },
+    body: JSON.stringify(req.body)
+  });
+  res.json(<span class="text-purple-400">await</span> r.json());
+});</pre>
+        </div>
+      </section>
+
+      <!-- SECURITY -->
+      <section id="security" class="space-y-3 searchable-item">
+        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
+          <span class="w-1 h-3.5 bg-[var(--warn)] rounded-sm"></span> Bảo mật API key
+        </h2>
+        <ul class="text-zinc-400 text-[14px] leading-relaxed list-disc list-inside space-y-1.5">
+          <li>Không bao giờ đặt key thật trong HTML, JS phía client, hay commit git.</li>
+          <li>Luôn gọi API bên thứ 3 từ backend, trả kết quả về client qua endpoint riêng.</li>
+          <li>Dùng biến môi trường (<code class="font-mono text-zinc-300">.env</code>) và thêm vào <code class="font-mono text-zinc-300">.gitignore</code>.</li>
+          <li>Xoay vòng (rotate) key ngay nếu nghi ngờ bị lộ.</li>
+        </ul>
+      </section>
+
+      <!-- INTEGRATIONS -->
+      <section id="integrations" class="space-y-4">
+        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
+          <span class="w-1 h-3.5 bg-white/50 rounded-sm"></span> Đối tác &amp; tích hợp
+        </h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono text-xs">
+          <div class="border border-[var(--line)] bg-[#0a0c10] p-3 rounded searchable-item">
+            <span class="text-white block font-medium">Anthropic API</span>
+            <span class="text-[var(--signal)] text-[10px] mt-2 block">Đã kết nối (backend)</span>
+          </div>
+          <div class="border border-[var(--line)] bg-[#0a0c10] p-3 rounded searchable-item">
+            <span class="text-white block font-medium">VS Code</span>
+            <span class="text-zinc-500 text-[10px] mt-2 block">Sẵn sàng</span>
+          </div>
+          <div class="border border-[var(--line)] bg-[#0a0c10] p-3 rounded searchable-item">
+            <span class="text-white block font-medium">GitHub</span>
+            <span class="text-zinc-500 text-[10px] mt-2 block">Chưa kết nối</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCALE -->
+      <section id="scale" class="space-y-5 searchable-item">
+        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
+          <span class="w-1 h-3.5 bg-[var(--signal)] rounded-sm"></span> Quy mô &amp; hạ tầng
+        </h2>
+        <p class="text-zinc-400 text-[14px] leading-relaxed">
+          Backend trung gian được thiết kế để đứng vững khi số agent tăng lên — không đổi kiến trúc, chỉ thêm tài nguyên.
+        </p>
+        <div class="grid grid-cols-3 gap-3">
+          <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4">
+            <div class="text-2xl font-display font-bold text-white">1</div>
+            <div class="text-[11px] text-zinc-500 font-mono mt-1">backend, nhiều agent</div>
+          </div>
+          <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4">
+            <div class="text-2xl font-display font-bold text-white">0</div>
+            <div class="text-[11px] text-zinc-500 font-mono mt-1">API key lộ ra client</div>
+          </div>
+          <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4">
+            <div class="text-2xl font-display font-bold text-white">&infin;</div>
+            <div class="text-[11px] text-zinc-500 font-mono mt-1">agent mở rộng theo hàng ngang</div>
+          </div>
+        </div>
+        <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4">
+          <div class="tick-bar h-2 rounded-full mb-3"></div>
+          <p class="text-xs text-zinc-500 leading-relaxed font-mono">Mỗi tick = một request được backend trung chuyển. Không có giới hạn cứng — chỉ giới hạn theo hạn mức của nhà cung cấp API và cấu hình rate-limit bạn đặt.</p>
+        </div>
+      </section>
+
+      <!-- ROADMAP -->
+      <section id="roadmap" class="space-y-4 searchable-item">
+        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
+          <span class="w-1 h-3.5 bg-white/50 rounded-sm"></span> Lộ trình phát triển
+        </h2>
+        <ol class="space-y-3">
+          <li class="flex gap-3 items-start">
+            <span class="font-mono text-[11px] text-[var(--signal)] border border-[var(--signal)]/40 rounded px-1.5 py-0.5 mt-0.5 shrink-0">v1.0</span>
+            <span class="text-zinc-400 text-[14px] leading-relaxed"><span class="text-white">Backend trung gian ổn định</span> — proxy API key, endpoint chat cơ bản.</span>
+          </li>
+          <li class="flex gap-3 items-start">
+            <span class="font-mono text-[11px] text-zinc-500 border border-[var(--line)] rounded px-1.5 py-0.5 mt-0.5 shrink-0">v1.1</span>
+            <span class="text-zinc-400 text-[14px] leading-relaxed"><span class="text-white">Đa agent song song</span> — hàng đợi request, giới hạn tốc độ theo từng agent.</span>
+          </li>
+          <li class="flex gap-3 items-start">
+            <span class="font-mono text-[11px] text-zinc-500 border border-[var(--line)] rounded px-1.5 py-0.5 mt-0.5 shrink-0">v1.2</span>
+            <span class="text-zinc-400 text-[14px] leading-relaxed"><span class="text-white">Bảng điều khiển giám sát</span> — chi phí, độ trễ và tỉ lệ lỗi theo thời gian thực.</span>
+          </li>
+        </ol>
+      </section>
+
+      <footer class="pt-8 border-t border-[var(--line)] text-xs text-[var(--text-muted)] space-y-1">
+        <p>&copy; 2026 Gezsk Ai. Phiên bản: <span class="text-[var(--signal)]">v1.0.0</span></p>
+        <p>Đây là bản phát hành đầu tiên — sẽ cập nhật dần theo phản hồi.</p>
+      </footer>
+    </main>
+  </div>
+
+<script>
+  // Copy — nội dung hiển thị và nội dung copy giờ khớp nhau tuyệt đối
+  function copyCodeFunction(){
+    const codeText = document.getElementById("codeToCopy").innerText;
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.getElementById("copyBtn");
+      const original = btn.innerHTML;
+      btn.innerHTML = "<span>&check; Copied</span>";
+      btn.classList.add("bg-emerald-950","text-emerald-400","border-emerald-800");
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove("bg-emerald-950","text-emerald-400","border-emerald-800");
+      }, 2000);
+    });
+  }
+
+  // Tìm kiếm — ẩn hẳn phần tử không khớp thay vì chỉ làm mờ
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput){
+    searchInput.addEventListener('keyup', () => {
+      const q = searchInput.value.toLowerCase();
+      document.querySelectorAll('.searchable-item').forEach(item => {
+        item.classList.toggle('is-hidden', q.length > 0 && !item.innerText.toLowerCase().includes(q));
+      });
+    });
+  }
+
+  // Sidebar mobile
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const toggle = document.getElementById('menuToggle');
+  function closeSidebar(){
+    sidebar.classList.add('-translate-x-full');
+    overlay.classList.add('hidden');
+    toggle.setAttribute('aria-expanded','false');
+  }
+  function openSidebar(){
+    sidebar.classList.remove('-translate-x-full');
+    overlay.classList.remove('hidden');
+    toggle.setAttribute('aria-expanded','true');
+  }
+  toggle.addEventListener('click', () => {
+    sidebar.classList.contains('-translate-x-full') ? openSidebar() : closeSidebar();
+  });
+  overlay.addEventListener('click', closeSidebar);
+  sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', closeSidebar));
+</script>
+</body>
+</html>
