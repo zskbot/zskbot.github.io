@@ -1,0 +1,5 @@
+frontmatter_defaults:
+  - scope:
+      path: "content"
+    values:
+      render_with_liquid: false
