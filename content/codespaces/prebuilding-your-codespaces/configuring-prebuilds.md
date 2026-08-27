@@ -17,12 +17,12 @@ To configure prebuilds, you must be a repository administrator or have access to
 
 ## Creating a prebuild configuration
 
-1. On {% data variables.product.prodname_dotcom %}, navigate to the main page of the repository.
-2. Under your repository name, click **Settings**.
-3. In the left sidebar, click **Codespaces**.
-4. In the "Prebuild configuration" section, click **Set up prebuild**.
+1. On GitHub, navigate to the main page of the repository.
+2. Under your repository name, click Settings.
+3. In the left sidebar, click Codespaces.
+4. In the Prebuild configuration section, click Set up prebuild.
 5. Select the branch you want to configure prebuilds for.
-6. Configure the regions and trigger settings, then click **Create**.
+6. Configure the regions and trigger settings, then click Create.
 
 ## Troubleshooting
 
