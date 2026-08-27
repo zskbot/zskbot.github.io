@@ -1,0 +1,3 @@
+# Thêm các thư viện Python mà dự án của bạn cần vào dưới đây (nếu có)
+# Ví dụ nếu bạn dùng requests thì bỏ dấu # ở dòng dưới:
+# requests==2.31.0
