@@ -10,13 +10,13 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root{
-    --ink:#0b0e13;
-    --panel:#12151c;
-    --line:#1e2330;
-    --text-primary:#e7eaf0;
-    --text-muted:#8891a6;
-    --signal:#4fe0c4;
-    --warn:#f5a623;
+    --ink:#09090b;
+    --panel:#111113;
+    --line:#27272a;
+    --text-primary:#fafafa;
+    --text-muted:#a1a1aa;
+    --signal:#e4e4e7;
+    --warn:#a1a1aa;
   }
   body{ font-family:'Inter',sans-serif; background:var(--ink); color:var(--text-primary); overflow-x:hidden; }
   .font-display{ font-family:'Space Grotesk',sans-serif; }
@@ -27,56 +27,50 @@
 
   /* Signature element: circuit-pulse background on hero */
   .circuit-bg{
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 42px 42px;
-    background-position: -1px -1px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 90%);
+    background: radial-gradient(ellipse at 50% 0%, rgba(161,161,170,.08), transparent 68%);
+    mask-image: none;
   }
   .pulse-dot{
     width:7px; height:7px; border-radius:9999px; background:var(--signal);
-    box-shadow:0 0 0 0 rgba(79,224,196,.6);
-    animation: pulse 2s infinite;
+    box-shadow:none; animation:none;
   }
   @media (prefers-reduced-motion: reduce){ .pulse-dot{ animation:none; } }
   @keyframes pulse{
-    0%{ box-shadow:0 0 0 0 rgba(79,224,196,.5); }
-    70%{ box-shadow:0 0 0 8px rgba(79,224,196,0); }
-    100%{ box-shadow:0 0 0 0 rgba(79,224,196,0); }
+    0%{ box-shadow:0 0 0 0 rgba(161,161,170,.18); }
+    70%{ box-shadow:0 0 0 8px rgba(161,161,170,0); }
+    100%{ box-shadow:0 0 0 0 rgba(161,161,170,0); }
   }
-  .flow-dot{
-    animation: flow 2.4s linear infinite;
-  }
+  .flow-dot{ animation:none; }
   @media (prefers-reduced-motion: reduce){ .flow-dot{ animation:none; } }
-  @keyframes flow{
-    0%{ offset-distance:0%; opacity:0; }
-    8%{ opacity:1; }
-    92%{ opacity:1; }
-    100%{ offset-distance:100%; opacity:0; }
-  }
+  
   .searchable-item{ transition: opacity .15s ease; }
   .searchable-item.is-hidden{ opacity:.15; pointer-events:none; }
 
   /* Signature mark: ^_ — caret + terminal cursor, the project's glyph */
-  .mark-cursor{ animation: cursor-blink 1.15s steps(1,end) infinite; }
-  @media (prefers-reduced-motion: reduce){ .mark-cursor{ animation:none; } }
-  @keyframes cursor-blink{
-    0%, 45%{ opacity:1; }
-    50%, 95%{ opacity:.12; }
-    100%{ opacity:1; }
-  }
-  .mark-badge{
-    background:
-      radial-gradient(120% 140% at 30% 0%, rgba(79,224,196,.14), transparent 55%),
-      #0d1210;
-  }
+  .mark-cursor{ animation:none; }
+  .mark-badge{ background:#18181b; }
 
   /* Metric ticks for the scale section */
-  .tick-bar{ background: repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 8px); }
+  .tick-bar{ background:repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 8px); }
 
-  a:focus-visible, button:focus-visible, input:focus-visible{
-    outline:2px solid var(--signal); outline-offset:2px; border-radius:4px;
+  a:focus-visible, button:focus-visible, input:focus-visible{ outline:2px solid #a1a1aa; outline-offset:3px; border-radius:8px; }
+
+  /* v0-inspired layout refinements: neutral surfaces, calm spacing, no decorative rules */
+  body{ background:#09090b; }
+  header{ border-bottom-color:#27272a !important; }
+  #sidebar{ border-right-color:#27272a !important; }
+  main{ scroll-behavior:smooth; }
+  main section{ scroll-margin-top:90px; }
+  main .border{ border-color:#27272a !important; }
+  main [class*="rounded-lg"]{ border-radius:14px !important; }
+  main [class*="bg-[var(--panel)]"]{ background:#111113 !important; }
+  #searchInput{ border-radius:10px !important; border-color:#303036 !important; background:#111113 !important; }
+  @media(max-width:640px){
+    header{ padding-top:12px !important; padding-bottom:12px !important; }
+    main{ padding-top:28px !important; gap:48px !important; }
+    main h1{ font-size:clamp(1.8rem,8vw,2.4rem) !important; line-height:1.12 !important; }
+    main section .p-6{ padding:16px !important; }
+    #sidebar{ width:min(82vw,300px) !important; box-shadow:18px 0 60px rgba(0,0,0,.35); }
   }
 </style>
 </head>
@@ -170,21 +164,21 @@
             <defs>
               <path id="flowPath" d="M 60 60 L 300 60 L 300 60 L 540 60" fill="none"/>
             </defs>
-            <line x1="60" y1="60" x2="300" y2="60" stroke="#1e2330" stroke-width="2"/>
-            <line x1="300" y1="60" x2="540" y2="60" stroke="#1e2330" stroke-width="2"/>
+            <line x1="60" y1="60" x2="300" y2="60" stroke="#27272a" stroke-width="2"/>
+            <line x1="300" y1="60" x2="540" y2="60" stroke="#27272a" stroke-width="2"/>
 
-            <circle cx="60" cy="60" r="26" fill="#0d1116" stroke="#2a3040" stroke-width="2"/>
+            <circle cx="60" cy="60" r="26" fill="#111113" stroke="#303036" stroke-width="2"/>
             <text x="60" y="64" text-anchor="middle" fill="#e7eaf0" font-size="9" font-family="JetBrains Mono">Trình duyệt</text>
 
-            <rect x="270" y="34" width="60" height="52" rx="8" fill="#0d1116" stroke="#2a3040" stroke-width="2"/>
+            <rect x="270" y="34" width="60" height="52" rx="8" fill="#111113" stroke="#303036" stroke-width="2"/>
             <text x="300" y="64" text-anchor="middle" fill="#e7eaf0" font-size="9" font-family="JetBrains Mono">Backend</text>
 
-            <circle cx="540" cy="60" r="26" fill="#0d1116" stroke="#f5a623" stroke-width="2"/>
+            <circle cx="540" cy="60" r="26" fill="#111113" stroke="#a1a1aa" stroke-width="2"/>
             <text x="540" y="58" text-anchor="middle" fill="#e7eaf0" font-size="8" font-family="JetBrains Mono">API</text>
             <text x="540" y="69" text-anchor="middle" fill="#e7eaf0" font-size="8" font-family="JetBrains Mono">bên thứ 3</text>
 
-            <circle r="4" fill="#4fe0c4" style="offset-path:path('M 60 60 L 300 60'); offset-rotate:0deg;" class="flow-dot"/>
-            <circle r="4" fill="#f5a623" style="offset-path:path('M 300 60 L 540 60'); offset-rotate:0deg;" class="flow-dot" opacity="0"/>
+            <circle r="4" fill="#a1a1aa" style="offset-path:path('M 60 60 L 300 60'); offset-rotate:0deg;" class="flow-dot"/>
+            <circle r="4" fill="#a1a1aa" style="offset-path:path('M 300 60 L 540 60'); offset-rotate:0deg;" class="flow-dot" opacity="0"/>
           </svg>
           <p class="text-xs text-zinc-500 font-mono mt-2">Yêu cầu đi qua backend — API key (chấm màu hổ phách) chỉ di chuyển ở chặng phía trong, không bao giờ tới trình duyệt.</p>
         </div>
