@@ -1,12 +1,14 @@
 "$schema" = "https://open-api.netlify.com/netlify.schema.json"
 
 # Static site: publish the existing GitHub Pages artifact directory.
-# No build command, Functions, database, or paid add-ons are required.
+# No Ruby, Jekyll, package installation, or build step is required.
 [build]
+  command = "echo 'No build needed'"
   publish = "public"
 
 # Pull-request Deploy Previews publish the same static artifact.
 [context.deploy-preview]
+  command = "echo 'No build needed'"
   publish = "public"
 
 # Never publish the Production context from this repository.
