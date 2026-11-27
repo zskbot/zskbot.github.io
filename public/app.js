@@ -286,7 +286,7 @@ render:()=>`
   <div class="grid grid-2">
     ${[
       ["GitHub","Repository and source control","Connected"],
-      ["Vercel","Deployment and previews","Connected"],
+      ["Netlify","Static hosting and Deploy Previews · Free","Ready"],
       ["Cloudflare","Edge and networking","Ready"],
       ["OpenAI","AI model provider","Connected"],
       ["Anthropic","AI model provider","Connected"],
