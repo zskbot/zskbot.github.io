@@ -4,122 +4,162 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#08090b">
-<meta name="author" content="Huỳnh Thương — zskbot">
-<meta name="description" content="Huỳnh Thương Central Project Command Center — trung tâm danh mục và điều phối dự án mã nguồn của zskbot.">
-<title>Huỳnh Thương — Project Command Center</title>
+<meta name="description" content="Tài liệu kỹ thuật OCodeJS và zskbot: bắt đầu, CLI, SDK, API, triển khai và kiến trúc mã nguồn mở.">
+<meta name="author" content="zskbot">
+<title>Documentation — OCodeJS / zskbot</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:dark;--bg:#08090b;--panel:#101216;--panel2:#15181e;--line:#292d35;--text:#f4f5f7;--muted:#9299a5;--soft:#c2c7d0;--accent:#a7f36b;--blue:#8ab4ff;--danger:#ff8585}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min-height:100vh}button,input,select{font:inherit;border-radius:0}a{color:inherit;text-decoration:none}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.mono{font-family:"JetBrains Mono",monospace}.shell{max-width:1440px;margin:auto;padding:0 28px}.topbar{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:rgba(8,9,11,.94);backdrop-filter:blur(14px);z-index:20;padding:0 28px}.brand{display:flex;align-items:center;gap:12px}.brandmark{width:38px;height:38px;border:1px solid #626b78;display:grid;place-items:center;color:var(--accent);font:700 14px "JetBrains Mono";letter-spacing:-2px}.brandname{font-weight:700;letter-spacing:-.04em}.brandname small{display:block;color:var(--muted);font:10px "JetBrains Mono";letter-spacing:.12em;margin-top:2px}.top-actions{display:flex;gap:8px;align-items:center}.btn{border:1px solid var(--line);background:transparent;color:var(--soft);padding:10px 13px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:8px}.btn:hover{border-color:#747d8b;color:white;background:#15181e}.btn.primary{background:var(--accent);border-color:var(--accent);color:#10140d}.btn.primary:hover{background:#c0ff91}.hero{padding:58px 0 36px;display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:34px;align-items:end}.eyebrow{color:var(--accent);font:11px "JetBrains Mono";letter-spacing:.13em;text-transform:uppercase;display:flex;align-items:center;gap:9px}.pulse{width:7px;height:7px;background:var(--accent);box-shadow:0 0 14px #a7f36b88}.hero h1{font-size:clamp(38px,6vw,72px);line-height:.98;letter-spacing:-.075em;margin:18px 0 16px}.hero h1 span{color:var(--accent)}.hero p{color:var(--muted);font-size:15px;line-height:1.7;max-width:690px;margin:0}.founder{border:1px solid var(--line);padding:16px;display:flex;gap:14px;align-items:center;background:linear-gradient(145deg,#15191e,#0d0f12)}.founder img{width:64px;height:64px;object-fit:cover;border:1px solid #505762;filter:grayscale(12%)}.founder-label{font:10px "JetBrains Mono";color:var(--muted);letter-spacing:.12em}.founder strong{display:block;font-size:16px;margin:5px 0 3px}.founder a{font:10px "JetBrains Mono";color:var(--accent)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin:12px 0 38px}.metric{padding:19px 20px;border-right:1px solid var(--line)}.metric:last-child{border:0}.metric .value{font:600 27px "JetBrains Mono";letter-spacing:-.06em}.metric .label{font:10px "JetBrains Mono";color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:7px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:0 0 16px}.section-head h2{font-size:20px;letter-spacing:-.04em;margin:0}.section-head p{font-size:12px;color:var(--muted);margin:6px 0 0}.section-kicker{font:10px "JetBrains Mono";color:var(--accent);letter-spacing:.12em;margin-bottom:8px}.toolbar{display:flex;gap:8px;margin:18px 0 14px}.search{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);padding:12px 14px;color:var(--text);font-size:13px}.filter{background:var(--panel);border:1px solid var(--line);color:var(--soft);padding:0 12px;font-size:12px;min-width:130px}.tabs{display:flex;gap:6px;overflow:auto;padding-bottom:2px}.tab{border:1px solid var(--line);padding:8px 11px;background:transparent;color:var(--muted);white-space:nowrap;font:10px "JetBrains Mono"}.tab[aria-pressed=true]{background:#1b2516;border-color:#638d43;color:var(--accent)}.results-meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font:10px "JetBrains Mono";padding:13px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.project{border:1px solid var(--line);background:var(--panel);padding:17px;min-width:0;display:flex;flex-direction:column;min-height:190px;transition:border-color .15s,transform .15s}.project:hover{border-color:#626b78;transform:translateY(-2px)}.project-top{display:flex;justify-content:space-between;gap:12px;align-items:start}.repo-icon{width:31px;height:31px;border:1px solid #3a414c;display:grid;place-items:center;color:var(--accent);font:12px "JetBrains Mono";flex:none}.visibility{font:9px "JetBrains Mono";color:var(--muted);border:1px solid var(--line);padding:4px 6px}.project h3{font:600 14px "JetBrains Mono";margin:14px 0 7px;overflow-wrap:anywhere}.project p{font-size:12px;color:var(--muted);line-height:1.55;margin:0 0 14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:37px}.project-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--muted);font:10px "JetBrains Mono"}.project-foot span{white-space:nowrap}.repo-links{display:flex;gap:10px}.repo-links a{color:var(--soft)}.repo-links a:hover{color:var(--accent)}.lang-dot{width:7px;height:7px;display:inline-block;background:var(--blue);margin-right:5px}.empty,.loading{border:1px dashed var(--line);padding:40px;text-align:center;color:var(--muted);font:12px "JetBrains Mono";grid-column:1/-1}.loading:before{content:"";display:block;width:18px;height:18px;border:1px solid var(--line);border-top-color:var(--accent);margin:0 auto 14px;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.lower{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin:46px 0}.panel{border:1px solid var(--line);background:var(--panel);padding:20px}.panel h3{font-size:14px;margin:0 0 16px}.signature{font:12px "JetBrains Mono";color:var(--accent);line-height:1.9;overflow-wrap:anywhere}.signature small{display:block;color:var(--muted);font-size:10px;margin-top:8px}.quicklinks{display:grid;grid-template-columns:1fr 1fr;gap:8px}.quicklinks a{border:1px solid var(--line);padding:12px;color:var(--soft);font:10px "JetBrains Mono"}.quicklinks a:hover{border-color:var(--accent);color:var(--accent)}footer{border-top:1px solid var(--line);padding:23px 0 35px;color:var(--muted);font:10px "JetBrains Mono";display:flex;justify-content:space-between;gap:16px}.status{color:var(--accent)}.hidden{display:none!important}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr 250px}.lower{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.shell{padding:0 16px}.topbar{height:60px;padding:0 16px}.top-actions .btn:not(.primary){display:none}.brandmark{width:34px;height:34px}.hero{padding:39px 0 25px;grid-template-columns:1fr;gap:20px}.hero h1{font-size:48px}.founder{max-width:100%}.metrics{grid-template-columns:repeat(2,1fr);margin-bottom:30px}.metric{padding:14px;border-bottom:1px solid var(--line)}.metric:nth-child(2){border-right:0}.metric:nth-child(3),.metric:nth-child(4){border-bottom:0}.metric .value{font-size:23px}.section-head{align-items:start}.toolbar{flex-wrap:wrap}.search{flex-basis:100%}.filter{height:40px;flex:1}.tabs{margin-right:-16px;padding-right:16px}.grid{grid-template-columns:1fr}.project{min-height:172px}.lower{grid-template-columns:1fr;margin:34px 0}.quicklinks{grid-template-columns:1fr 1fr}footer{flex-direction:column}.section-head h2{font-size:18px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+:root{color-scheme:dark;--bg:#08090b;--surface:#0e1014;--surface2:#14171d;--line:#282d36;--text:#f3f5f8;--muted:#939ba8;--soft:#c4cad3;--accent:#a7f36b;--blue:#8ab4ff;--mono:"JetBrains Mono",monospace;--sans:"DM Sans",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:92px}body{margin:0;background:var(--bg);color:var(--text);font:14px var(--sans)}a{color:inherit;text-decoration:none}button,input{font:inherit;border-radius:0}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.mono{font-family:var(--mono)}
+.topbar{height:64px;position:fixed;inset:0 0 auto;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(8,9,11,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:-.04em}.mark{width:31px;height:31px;border:1px solid #596273;display:grid;place-items:center;color:var(--accent);font:700 11px var(--mono)}.brand small{display:block;color:var(--muted);font:9px var(--mono);letter-spacing:.12em;margin-top:3px}
+.topright{display:flex;align-items:center;gap:10px}.version{font:10px var(--mono);color:var(--muted);border:1px solid var(--line);padding:7px 9px}.github{border:1px solid var(--line);padding:9px 12px;font:10px var(--mono);color:var(--soft)}.github:hover{border-color:var(--accent);color:var(--accent)}.menu-toggle{display:none;background:transparent;border:1px solid var(--line);color:var(--text);width:36px;height:36px;font-size:18px}
+.layout{max-width:1480px;margin:64px auto 0;display:grid;grid-template-columns:258px minmax(0,1fr) 190px;min-height:calc(100vh - 64px)}
+.sidebar{border-right:1px solid var(--line);padding:26px 16px 40px 22px;position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto}
+.search-wrap{position:relative;margin-bottom:25px}.search-wrap input{width:100%;background:var(--surface);border:1px solid var(--line);color:var(--text);padding:11px 34px 11px 11px;font:11px var(--mono)}.search-wrap kbd{position:absolute;right:9px;top:10px;color:var(--muted);font:9px var(--mono)}
+.nav-group{margin:0 0 22px}.nav-label{font:9px var(--mono);letter-spacing:.13em;color:#727b89;text-transform:uppercase;padding:0 9px;margin-bottom:8px}.nav-link{display:flex;align-items:center;gap:9px;padding:8px 9px;color:var(--muted);font-size:12px;border-left:1px solid transparent}.nav-link:hover{color:var(--text);background:#11151a}.nav-link.active{color:var(--accent);border-left-color:var(--accent);background:#11180e}.nav-icon{width:14px;text-align:center;color:#788292;font:10px var(--mono)}
+.content{min-width:0;padding:48px clamp(24px,5vw,76px) 90px;max-width:980px}.breadcrumbs{font:10px var(--mono);color:var(--muted);display:flex;gap:8px;align-items:center;margin-bottom:24px}.breadcrumbs b{color:var(--accent);font-weight:500}.eyebrow{font:10px var(--mono);color:var(--accent);letter-spacing:.13em;text-transform:uppercase;display:flex;align-items:center;gap:8px}.dot{width:6px;height:6px;background:var(--accent);box-shadow:0 0 12px #a7f36b88}
+h1{font-size:clamp(38px,5vw,58px);letter-spacing:-.075em;line-height:1.02;margin:17px 0 18px}h1 span{color:var(--accent)}.lead{max-width:700px;color:var(--muted);font-size:15px;line-height:1.8;margin:0}.hero-actions{display:flex;gap:9px;margin:26px 0 35px;flex-wrap:wrap}.button{display:inline-flex;align-items:center;gap:9px;padding:11px 14px;border:1px solid var(--line);font:10px var(--mono);color:var(--soft)}.button:hover{border-color:var(--accent);color:var(--accent)}.button.primary{background:var(--accent);border-color:var(--accent);color:#10140d;font-weight:700}
+.notice{display:flex;gap:12px;border:1px solid #3b4b30;background:#11170e;padding:15px 16px;margin:0 0 38px}.notice .symbol{font:14px var(--mono);color:var(--accent)}.notice strong{font-size:12px}.notice p{color:var(--muted);font-size:11px;line-height:1.6;margin:5px 0 0}
+.section{margin:0 0 48px;scroll-margin-top:88px}.section-kicker{font:9px var(--mono);color:var(--accent);letter-spacing:.14em;margin-bottom:10px}.section h2{font-size:23px;letter-spacing:-.05em;margin:0 0 11px}.section-intro{color:var(--muted);font-size:13px;line-height:1.7;margin:0 0 20px;max-width:690px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.doc-card{border:1px solid var(--line);background:var(--surface);padding:17px;min-height:140px;transition:border-color .15s}.doc-card:hover{border-color:#687382}.card-icon{font:12px var(--mono);color:var(--accent);margin-bottom:15px}.doc-card h3{font:600 13px var(--mono);margin:0 0 8px}.doc-card p{font-size:11px;line-height:1.65;color:var(--muted);margin:0}.card-arrow{display:block;color:var(--accent);font:10px var(--mono);margin-top:14px}
+.steps{counter-reset:step;display:grid;gap:0}.step{counter-increment:step;display:grid;grid-template-columns:38px 1fr;gap:12px;padding:16px 0;border-top:1px solid var(--line)}.step:before{content:"0" counter(step);font:11px var(--mono);color:var(--accent);padding-top:2px}.step h3{font-size:13px;margin:0 0 6px}.step p{font-size:11px;color:var(--muted);line-height:1.65;margin:0}.code{border:1px solid var(--line);background:#0b0d10;margin:14px 0 0;position:relative}.code-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:9px 12px;color:var(--muted);font:9px var(--mono)}.copy{border:1px solid var(--line);background:transparent;color:var(--soft);padding:5px 8px;font:9px var(--mono)}.copy:hover{color:var(--accent);border-color:var(--accent)}pre{margin:0;padding:15px;overflow:auto;color:#d8e0eb;font:11px/1.8 var(--mono)}.kw{color:#c792ea}.str{color:#c3e88d}.fn{color:#82aaff}
+table{width:100%;border-collapse:collapse;font-size:11px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font:9px var(--mono);color:var(--muted);letter-spacing:.08em}td{color:var(--soft);line-height:1.6}td code{font:10px var(--mono);color:var(--accent)}
+.callout{border-left:2px solid var(--blue);background:#10151d;padding:13px 15px;color:var(--muted);font-size:11px;line-height:1.7}.callout strong{color:var(--text)}
+.page-footer{border-top:1px solid var(--line);padding-top:20px;margin-top:60px;display:flex;justify-content:space-between;gap:12px;color:var(--muted);font:9px var(--mono)}
+.toc{position:sticky;top:92px;height:max-content;padding:31px 16px 20px 10px}.toc-title{font:9px var(--mono);color:#727b89;letter-spacing:.13em;margin:0 0 12px}.toc a{display:block;border-left:1px solid var(--line);padding:7px 10px;color:var(--muted);font-size:10px}.toc a:hover{color:var(--accent);border-left-color:var(--accent)}
+.search-results{position:absolute;top:43px;left:0;right:0;background:#15191f;border:1px solid var(--line);z-index:10;max-height:320px;overflow:auto;display:none}.search-results.show{display:block}.search-results a{display:block;padding:10px;border-bottom:1px solid var(--line);font-size:11px;color:var(--soft)}.search-results a:hover{background:#202630;color:var(--accent)}.search-results small{display:block;color:var(--muted);font:9px var(--mono);margin-top:3px}
+@media(max-width:1120px){.layout{grid-template-columns:235px minmax(0,1fr)}.toc{display:none}.content{padding-right:34px}}
+@media(max-width:700px){.topbar{height:58px;padding:0 14px}.menu-toggle{display:block}.github{display:none}.version{font-size:9px}.layout{display:block;margin-top:58px}.sidebar{position:fixed;z-index:25;top:58px;bottom:0;left:0;width:min(84vw,300px);height:auto;background:#0b0d10;border-right:1px solid var(--line);transform:translateX(-102%);transition:transform .2s}.sidebar.open{transform:translateX(0)}.content{padding:34px 18px 65px}.content h1{font-size:43px}.lead{font-size:13px}.cards{grid-template-columns:1fr}.doc-card{min-height:unset}.section h2{font-size:21px}.hero-actions .button{flex:1;justify-content:center}.page-footer{flex-direction:column}.breadcrumbs{margin-bottom:20px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
 <header class="topbar">
-  <a class="brand" href="#" aria-label="Huỳnh Thương Command Center">
-    <span class="brandmark">HT_</span><span class="brandname">HUỲNH THƯƠNG<small>PROJECT COMMAND CENTER / ZSKBOT</small></span>
-  </a>
-  <nav class="top-actions">
-    <a class="btn" href="https://github.com/zskbot" target="_blank" rel="noreferrer">GITHUB PROFILE ↗</a>
-    <button class="btn primary" id="refreshTop" type="button">↻ REFRESH DATA</button>
-  </nav>
+ <a class="brand" href="#top"><span class="mark">OC/</span><span>OCODEJS DOCS<small>DEVELOPER KNOWLEDGE BASE</small></span></a>
+ <div class="topright"><span class="version">DOCS / V1.0</span><a class="github" href="https://github.com/zskbot" target="_blank" rel="noreferrer">GITHUB ↗</a><button class="menu-toggle" id="menuToggle" aria-label="Mở điều hướng" aria-expanded="false">☰</button></div>
 </header>
-<main class="shell">
-  <section class="hero">
-    <div>
-      <div class="eyebrow"><i class="pulse"></i> FOUNDER-LED DEVELOPMENT / 2026</div>
-      <h1>Build. Ship.<br><span>Coordinate.</span></h1>
-      <p>Trung tâm điều phối hệ sinh thái dự án của Huỳnh Thương. Một bảng điều khiển thống nhất để khám phá repository, theo dõi cấu trúc mã nguồn và truy cập nhanh các công cụ quản trị trên GitHub.</p>
-    </div>
-    <aside class="founder">
-      <img src="https://avatars.githubusercontent.com/u/241179063?v=4" alt="Ảnh đại diện GitHub của người sáng lập Huỳnh Thương" loading="eager">
-      <div><div class="founder-label">FOUNDER / BUILDER</div><strong>Huỳnh Thương</strong><a href="https://github.com/zskbot" target="_blank" rel="noreferrer">@zskbot ↗</a></div>
-    </aside>
-  </section>
-
-  <section class="metrics" aria-label="Thống kê hệ sinh thái">
-    <div class="metric"><div class="value" id="repoCount">—</div><div class="label">Public repositories</div></div>
-    <div class="metric"><div class="value" id="starsCount">—</div><div class="label">Total stars</div></div>
-    <div class="metric"><div class="value" id="forksCount">—</div><div class="label">Total forks</div></div>
-    <div class="metric"><div class="value" id="languageCount">—</div><div class="label">Languages detected</div></div>
-  </section>
-
-  <section id="registry">
-    <div class="section-head">
-      <div><div class="section-kicker">01 / PROJECT REGISTRY</div><h2>Repository Directory</h2><p>Danh mục tự đồng bộ từ GitHub API công khai của tài khoản zskbot.</p></div>
-      <a class="btn" href="https://github.com/zskbot?tab=repositories" target="_blank" rel="noreferrer">ALL REPOSITORIES ↗</a>
-    </div>
-    <div class="toolbar">
-      <input class="search" id="search" type="search" placeholder="Tìm theo tên repo, mô tả hoặc ngôn ngữ..." autocomplete="off" aria-label="Tìm repository">
-      <select class="filter" id="sort" aria-label="Sắp xếp"><option value="updated">Mới cập nhật</option><option value="stars">Nhiều stars</option><option value="name">Tên A–Z</option><option value="created">Mới tạo</option></select>
-    </div>
-    <div class="tabs" id="filters" aria-label="Bộ lọc repository">
-      <button class="tab" data-filter="all" aria-pressed="true">ALL PROJECTS</button>
-      <button class="tab" data-filter="source" aria-pressed="false">SOURCE CODE</button>
-      <button class="tab" data-filter="web" aria-pressed="false">WEB / PAGES</button>
-      <button class="tab" data-filter="tools" aria-pressed="false">TOOLS / CLI</button>
-      <button class="tab" data-filter="docs" aria-pressed="false">DOCS / SKILLS</button>
-    </div>
-    <div class="results-meta"><span id="resultCount">ĐANG TẢI DANH MỤC…</span><span id="lastUpdated">SOURCE: API.GITHUB.COM</span></div>
-    <div class="grid" id="projects"><div class="loading">Đang đồng bộ repository công khai của zskbot…</div></div>
-  </section>
-
-  <section class="lower">
-    <div class="panel">
-      <div class="section-kicker">02 / FOUNDER CODE</div>
-      <h3>Code Signature &amp; Identity</h3>
-      <div class="signature">/* ----------------------------------<br>   HUỲNH THƯƠNG / FOUNDER<br>   GITHUB : github.com/zskbot<br>   ROLE   : BUILDER · ENGINEER<br>   MOTTO  : BUILD WITH PURPOSE<br>   SIGN   : HT::ZSKBOT::CORE<br>---------------------------------- */<small>FOUNDER SIGNATURE · PROJECT IDENTITY · 2026</small></div>
-    </div>
-    <div class="panel">
-      <div class="section-kicker">03 / OPERATIONS</div>
-      <h3>Management Shortcuts</h3>
-      <div class="quicklinks">
-        <a href="https://github.com/zskbot" target="_blank" rel="noreferrer">ACCOUNT OVERVIEW ↗</a>
-        <a href="https://github.com/notifications" target="_blank" rel="noreferrer">NOTIFICATIONS ↗</a>
-        <a href="https://github.com/zskbot?tab=repositories" target="_blank" rel="noreferrer">REPOSITORIES ↗</a>
-        <a href="https://github.com/settings/profile" target="_blank" rel="noreferrer">PROFILE SETTINGS ↗</a>
-        <a href="https://github.com/issues" target="_blank" rel="noreferrer">ISSUES ↗</a>
-        <a href="https://github.com/pulls" target="_blank" rel="noreferrer">PULL REQUESTS ↗</a>
-      </div>
-    </div>
-  </section>
-  <footer><span>© 2026 HUỲNH THƯƠNG · FOUNDER &amp; BUILDER</span><span>HT::ZSKBOT::CORE / <b class="status" id="syncStatus">CONNECTING</b></span></footer>
+<div class="layout" id="top">
+<aside class="sidebar" id="sidebar">
+ <div class="search-wrap"><input id="docSearch" type="search" placeholder="Tìm tài liệu..." autocomplete="off" aria-label="Tìm kiếm tài liệu"><kbd>⌘ K</kbd><div class="search-results" id="searchResults"></div></div>
+ <nav aria-label="Điều hướng tài liệu">
+  <div class="nav-group"><div class="nav-label">GET STARTED</div><a class="nav-link active" href="#overview"><span class="nav-icon">⌂</span>Tổng quan</a><a class="nav-link" href="#quickstart"><span class="nav-icon">↗</span>Bắt đầu nhanh</a><a class="nav-link" href="#principles"><span class="nav-icon">◇</span>Nguyên tắc</a></div>
+  <div class="nav-group"><div class="nav-label">DEVELOPMENT</div><a class="nav-link" href="#cli"><span class="nav-icon">›_</span>OCodeJS CLI</a><a class="nav-link" href="#sdk"><span class="nav-icon">{ }</span>SDK &amp; Packages</a><a class="nav-link" href="#api"><span class="nav-icon">⌘</span>API Reference</a></div>
+  <div class="nav-group"><div class="nav-label">PLATFORM</div><a class="nav-link" href="#architecture"><span class="nav-icon">▦</span>Kiến trúc</a><a class="nav-link" href="#deployment"><span class="nav-icon">⇧</span>Deploy &amp; Preview</a><a class="nav-link" href="#integrations"><span class="nav-icon">⤳</span>Tích hợp</a></div>
+  <div class="nav-group"><div class="nav-label">COMMUNITY</div><a class="nav-link" href="#contributing"><span class="nav-icon">＋</span>Đóng góp</a><a class="nav-link" href="#resources"><span class="nav-icon">↗</span>Tài nguyên</a></div>
+ </nav>
+</aside>
+<main class="content">
+ <div class="breadcrumbs"><span>DOCS</span><span>/</span><b>OVERVIEW</b></div>
+ <section class="section" id="overview">
+  <div class="eyebrow"><i class="dot"></i> OPEN SOURCE / DEVELOPER DOCUMENTATION</div>
+  <h1>Build with<br><span>OCodeJS.</span></h1>
+  <p class="lead">Tài liệu dành cho developer muốn khám phá, xây dựng và mở rộng hệ sinh thái OCodeJS. Từ những bước đầu tiên với CLI đến SDK, API, kiến trúc và quy trình triển khai — mọi thứ được tổ chức tại một nơi.</p>
+  <div class="hero-actions"><a class="button primary" href="#quickstart">BẮT ĐẦU NGAY <span>→</span></a><a class="button" href="https://github.com/zskbot" target="_blank" rel="noreferrer">XEM SOURCE CODE ↗</a></div>
+  <div class="notice"><span class="symbol">i</span><div><strong>Developer documentation</strong><p>Đây là cổng tài liệu tổng hợp. Các liên kết tới package, endpoint hoặc repository cụ thể sẽ được bổ sung theo trạng thái phát hành thực tế; không giả định API chưa được công bố là đã khả dụng.</p></div></div>
+ </section>
+ <section class="section" id="quickstart">
+  <div class="section-kicker">01 / GET STARTED</div><h2>Bắt đầu trong vài phút</h2><p class="section-intro">Chuẩn bị môi trường, lấy mã nguồn và chạy dự án cục bộ. Hãy kiểm tra README của từng repository để biết yêu cầu runtime chính xác.</p>
+  <div class="steps">
+   <div class="step"><div><h3>Chuẩn bị môi trường</h3><p>Cài đặt Git và Node.js phiên bản LTS phù hợp với repository bạn muốn chạy.</p><div class="code"><div class="code-head"><span>TERMINAL / CHECK ENVIRONMENT</span><button class="copy" data-copy="node --version&#10;npm --version&#10;git --version">COPY</button></div><pre>node --version
+npm --version
+git --version</pre></div></div></div>
+   <div class="step"><div><h3>Clone repository</h3><p>Chọn repository trong tổ chức zskbot hoặc OCodejs và clone về máy.</p><div class="code"><div class="code-head"><span>TERMINAL / GIT</span><button class="copy" data-copy="git clone https://github.com/zskbot/ocodejs-cli.git&#10;cd ocodejs-cli">COPY</button></div><pre>git clone https://github.com/zskbot/ocodejs-cli.git
+cd ocodejs-cli</pre></div></div></div>
+   <div class="step"><div><h3>Cài dependencies và chạy</h3><p>Với dự án Node.js có package.json, cài dependencies rồi chạy script được khai báo trong package.</p><div class="code"><div class="code-head"><span>TERMINAL / NPM</span><button class="copy" data-copy="npm install&#10;npm run">COPY</button></div><pre>npm install
+npm run <span class="kw">[script]</span></pre></div></div></div>
+  </div>
+ </section>
+ <section class="section" id="principles">
+  <div class="section-kicker">02 / FOUNDATIONS</div><h2>Nguyên tắc phát triển</h2><p class="section-intro">Các nguyên tắc nền tảng giúp dự án dễ đọc, dễ mở rộng và an toàn khi đóng góp.</p>
+  <div class="cards">
+   <article class="doc-card"><div class="card-icon">01 / SOURCE</div><h3>Open by default</h3><p>Ưu tiên mã nguồn rõ ràng, README đầy đủ, license minh bạch và hướng dẫn tái lập môi trường.</p></article>
+   <article class="doc-card"><div class="card-icon">02 / QUALITY</div><h3>Verify before release</h3><p>Kiểm tra lint, type, build và hành vi Preview trước khi xem xét phát hành.</p></article>
+   <article class="doc-card"><div class="card-icon">03 / SECURITY</div><h3>Secrets stay private</h3><p>Không commit token, API key hoặc thông tin xác thực vào source code và lịch sử Git.</p></article>
+   <article class="doc-card"><div class="card-icon">04 / COMPATIBILITY</div><h3>Document interfaces</h3><p>Ghi rõ input, output, lỗi có thể gặp và yêu cầu tương thích của mỗi integration.</p></article>
+  </div>
+ </section>
+ <section class="section" id="cli">
+  <div class="section-kicker">03 / DEVELOPMENT</div><h2>OCodeJS CLI</h2><p class="section-intro">Khu vực dành cho công cụ dòng lệnh và workflow phát triển. Repository nguồn: <a href="https://github.com/zskbot/ocodejs-cli" target="_blank" rel="noreferrer" style="color:var(--accent)">zskbot/ocodejs-cli ↗</a>.</p>
+  <div class="cards">
+   <a class="doc-card" href="https://github.com/zskbot/ocodejs-cli" target="_blank" rel="noreferrer"><div class="card-icon">CLI / SOURCE</div><h3>Repository &amp; source</h3><p>Xem cấu trúc thư mục, package scripts, issue và lịch sử thay đổi.</p><span class="card-arrow">OPEN REPOSITORY ↗</span></a>
+   <a class="doc-card" href="https://github.com/zskbot/ocodejs-cli/issues" target="_blank" rel="noreferrer"><div class="card-icon">CLI / SUPPORT</div><h3>Issues &amp; roadmap</h3><p>Theo dõi lỗi, yêu cầu tính năng và các đầu việc đang được thảo luận.</p><span class="card-arrow">VIEW ISSUES ↗</span></a>
+  </div>
+ </section>
+ <section class="section" id="sdk">
+  <div class="section-kicker">04 / PACKAGES</div><h2>SDK &amp; Packages</h2><p class="section-intro">Tra cứu mã nguồn package và thông tin phát hành từ registry chính thức. Luôn xác nhận phiên bản, export và API thực tế trong package trước khi tích hợp.</p>
+  <div class="callout"><strong>Package reference:</strong> <a href="https://www.npmjs.com/package/ocode-js" target="_blank" rel="noreferrer" style="color:var(--accent)">ocode-js trên npm ↗</a>. Kiểm tra changelog và README đi kèm phiên bản đang cài.</div>
+ </section>
+ <section class="section" id="api">
+  <div class="section-kicker">05 / REFERENCE</div><h2>API Reference</h2><p class="section-intro">Bảng dưới đây là khung phân loại tài liệu API. Endpoint chỉ được coi là sẵn sàng khi có tài liệu triển khai và kiểm thử tương ứng.</p>
+  <table><thead><tr><th>AREA</th><th>DOCUMENTATION</th><th>STATUS</th></tr></thead><tbody>
+   <tr><td><code>CLI</code></td><td>Commands, flags, exit codes</td><td>Repository reference</td></tr>
+   <tr><td><code>SDK</code></td><td>Exports, types, usage examples</td><td>Package reference</td></tr>
+   <tr><td><code>HTTP</code></td><td>Routes, request / response schemas</td><td>Verify per service</td></tr>
+   <tr><td><code>MCP</code></td><td>Initialize, tools/list, tool schemas</td><td>Verify per server</td></tr>
+  </tbody></table>
+ </section>
+ <section class="section" id="architecture">
+  <div class="section-kicker">06 / PLATFORM</div><h2>Kiến trúc hệ sinh thái</h2><p class="section-intro">Tách biệt lớp giao diện, công cụ phát triển, dịch vụ tích hợp và hạ tầng triển khai. Mỗi repository là nguồn sự thật cho chức năng mà nó sở hữu.</p>
+  <div class="cards">
+   <article class="doc-card"><div class="card-icon">LAYER 01</div><h3>Developer Experience</h3><p>CLI, SDK, templates và các công cụ hỗ trợ quy trình phát triển.</p></article>
+   <article class="doc-card"><div class="card-icon">LAYER 02</div><h3>Application Layer</h3><p>Web app, dashboard, editor và các trải nghiệm người dùng.</p></article>
+   <article class="doc-card"><div class="card-icon">LAYER 03</div><h3>Integration Layer</h3><p>API, MCP servers, OAuth và các kết nối với nền tảng bên ngoài.</p></article>
+   <article class="doc-card"><div class="card-icon">LAYER 04</div><h3>Infrastructure</h3><p>Hosting, storage, observability và quy trình Preview / release.</p></article>
+  </div>
+ </section>
+ <section class="section" id="deployment">
+  <div class="section-kicker">07 / DELIVERY</div><h2>Deploy &amp; Preview</h2><p class="section-intro">Quy trình khuyến nghị cho thay đổi tài liệu và ứng dụng: làm việc trên branch riêng, tạo Preview, kiểm tra trên desktop và mobile rồi mới xem xét phát hành.</p>
+  <div class="steps">
+   <div class="step"><div><h3>Branch-based changes</h3><p>Tạo branch riêng cho mỗi thay đổi; không chỉnh trực tiếp nhánh phát hành.</p></div></div>
+   <div class="step"><div><h3>Preview validation</h3><p>Kiểm tra route, link, responsive layout, console và nội dung trước khi merge.</p></div></div>
+   <div class="step"><div><h3>Release with approval</h3><p>Chỉ phát hành sau khi review, xác nhận phạm vi và kiểm tra cấu hình môi trường.</p></div></div>
+  </div>
+ </section>
+ <section class="section" id="integrations">
+  <div class="section-kicker">08 / ECOSYSTEM</div><h2>Tích hợp</h2><p class="section-intro">Các liên kết tham khảo để khám phá nền tảng và công cụ liên quan. Quyền truy cập và cấu hình riêng vẫn do từng dịch vụ quản lý.</p>
+  <div class="cards">
+   <a class="doc-card" href="https://modelcontextprotocol.io/" target="_blank" rel="noreferrer"><div class="card-icon">PROTOCOL</div><h3>Model Context Protocol</h3><p>Đặc tả giao thức, server, tools và ứng dụng MCP.</p><span class="card-arrow">READ SPECIFICATION ↗</span></a>
+   <a class="doc-card" href="https://docs.github.com/" target="_blank" rel="noreferrer"><div class="card-icon">COLLABORATION</div><h3>GitHub</h3><p>Repository, pull requests, issues và quản lý mã nguồn.</p><span class="card-arrow">GITHUB DOCS ↗</span></a>
+  </div>
+ </section>
+ <section class="section" id="contributing">
+  <div class="section-kicker">09 / COMMUNITY</div><h2>Đóng góp cho dự án</h2><p class="section-intro">Mọi đóng góp nên nhỏ, có mục tiêu rõ ràng và dễ review. Trước khi gửi thay đổi, hãy đọc hướng dẫn đóng góp trong repository tương ứng.</p>
+  <div class="steps">
+   <div class="step"><div><h3>Find an issue</h3><p>Kiểm tra issue hiện có hoặc mô tả vấn đề mới với bước tái hiện cụ thể.</p></div></div>
+   <div class="step"><div><h3>Make a focused change</h3><p>Giữ diff gọn, cập nhật tài liệu liên quan và không đưa secrets vào commit.</p></div></div>
+   <div class="step"><div><h3>Open a pull request</h3><p>Mô tả mục đích, cách kiểm thử và ảnh chụp Preview nếu thay đổi giao diện.</p></div></div>
+  </div>
+ </section>
+ <section class="section" id="resources">
+  <div class="section-kicker">10 / RESOURCES</div><h2>Tài nguyên &amp; liên kết</h2><div class="cards">
+   <a class="doc-card" href="https://github.com/zskbot" target="_blank" rel="noreferrer"><div class="card-icon">01 / PROFILE</div><h3>zskbot on GitHub</h3><p>Khám phá repository và hoạt động mã nguồn.</p><span class="card-arrow">OPEN PROFILE ↗</span></a>
+   <a class="doc-card" href="https://github.com/OCodejs" target="_blank" rel="noreferrer"><div class="card-icon">02 / ORGANIZATION</div><h3>OCodejs organization</h3><p>Repository thuộc hệ sinh thái OCodeJS.</p><span class="card-arrow">OPEN ORGANIZATION ↗</span></a>
+   <a class="doc-card" href="https://www.npmjs.com/package/ocode-js" target="_blank" rel="noreferrer"><div class="card-icon">03 / PACKAGE</div><h3>npm package</h3><p>Thông tin package, phiên bản và hướng dẫn cài đặt.</p><span class="card-arrow">VIEW ON NPM ↗</span></a>
+   <a class="doc-card" href="https://modelcontextprotocol.io/" target="_blank" rel="noreferrer"><div class="card-icon">04 / STANDARD</div><h3>MCP specification</h3><p>Tài liệu giao thức tích hợp công cụ và ứng dụng.</p><span class="card-arrow">READ DOCS ↗</span></a>
+  </div>
+ </section>
+ <footer class="page-footer"><span>© 2026 ZSKBOT / OCODEJS DOCUMENTATION</span><span>BUILT FOR DEVELOPERS · OPEN SOURCE</span></footer>
 </main>
+<aside class="toc"><div class="toc-title">ON THIS PAGE</div><a href="#overview">Overview</a><a href="#quickstart">Quick start</a><a href="#principles">Principles</a><a href="#cli">CLI</a><a href="#sdk">SDK &amp; packages</a><a href="#api">API reference</a><a href="#architecture">Architecture</a><a href="#deployment">Deployment</a><a href="#integrations">Integrations</a><a href="#contributing">Contributing</a><a href="#resources">Resources</a></aside>
+</div>
 <script>
-const API="https://api.github.com/users/zskbot/repos?type=owner&sort=updated&per_page=100&page=";
-let repositories=[];let activeFilter="all";
-const $=id=>document.getElementById(id);
-const esc=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function category(repo){const s=(repo.name+" "+(repo.description||"")).toLowerCase();if(/docs|documentation|skill|guide|wiki/.test(s))return"docs";if(/cli|tool|terminal|sdk|action|agent|runner/.test(s))return"tools";if(/\.github\.io$|pages|website|web|site|dashboard/.test(s))return"web";return"source"}
-function render(){
- const q=$("search").value.trim().toLowerCase();const sort=$("sort").value;
- let list=repositories.filter(r=>{const hay=(r.name+" "+(r.description||"")+" "+(r.language||"")).toLowerCase();return(!q||hay.includes(q))&&(activeFilter==="all"||category(r)===activeFilter)});
- list.sort((a,b)=>sort==="stars"?b.stargazers_count-a.stargazers_count:sort==="name"?a.name.localeCompare(b.name):sort==="created"?new Date(b.created_at)-new Date(a.created_at):new Date(b.updated_at)-new Date(a.updated_at));
- $("resultCount").textContent=list.length+" / "+repositories.length+" REPOSITORIES";
- $("projects").innerHTML=list.length?list.map(r=>'<article class="project"><div class="project-top"><span class="repo-icon">'+esc(r.name.slice(0,2).toUpperCase())+'</span><span class="visibility">'+(r.fork?"FORK":"PUBLIC")+'</span></div><h3>'+esc(r.name)+'</h3><p>'+esc(r.description||"Chưa có mô tả repository.")+'</p><div class="project-foot"><span>'+(r.language?'<i class="lang-dot"></i>'+esc(r.language):"SOURCE REPOSITORY")+' · ★ '+r.stargazers_count+' ·⑂ '+r.forks_count+'</span><span class="repo-links"><a href="'+esc(r.html_url)+'" target="_blank" rel="noreferrer" aria-label="Mở repository">REPO ↗</a><a href="'+esc(r.html_url)+'/actions" target="_blank" rel="noreferrer">CI ↗</a></span></div></article>').join(""):'<div class="empty">KHÔNG TÌM THẤY REPOSITORY PHÙ HỢP.</div>';
-}
-async function loadRepos(){
- $("syncStatus").textContent="SYNCING";$("projects").innerHTML='<div class="loading">Đang đồng bộ repository công khai của zskbot…</div>';
- try{
-  let all=[],page=1;
-  while(page<=10){const response=await fetch(API+page,{headers:{"Accept":"application/vnd.github+json"}});if(!response.ok)throw new Error("GitHub API HTTP "+response.status);const batch=await response.json();if(!Array.isArray(batch))throw new Error("Invalid API response");all=all.concat(batch);if(batch.length<100)break;page++;}
-  repositories=all.filter(r=>!r.archived);
-  $("repoCount").textContent=repositories.length;
-  $("starsCount").textContent=repositories.reduce((n,r)=>n+r.stargazers_count,0);
-  $("forksCount").textContent=repositories.reduce((n,r)=>n+r.forks_count,0);
-  $("languageCount").textContent=new Set(repositories.map(r=>r.language).filter(Boolean)).size;
-  $("lastUpdated").textContent="SYNCED "+new Date().toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"});
-  $("syncStatus").textContent="LIVE / PUBLIC API";render();
- }catch(error){$("syncStatus").textContent="API UNAVAILABLE";$("projects").innerHTML='<div class="empty">Không thể tải danh mục từ GitHub API lúc này. Hãy thử REFRESH DATA hoặc mở <a href="https://github.com/zskbot?tab=repositories" target="_blank" rel="noreferrer">danh sách repository ↗</a> trực tiếp.</div>';$("resultCount").textContent="SYNC FAILED";}
-}
-$("search").addEventListener("input",render);$("sort").addEventListener("change",render);
-$("filters").addEventListener("click",event=>{const button=event.target.closest("button[data-filter]");if(!button)return;activeFilter=button.dataset.filter;document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-pressed",String(t===button)));render();});
-$("refreshTop").addEventListener("click",loadRepos);loadRepos();
+const sections=[...document.querySelectorAll(".section[id]")];
+const links=[...document.querySelectorAll(".nav-link")];
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){links.forEach(link=>link.classList.toggle("active",link.getAttribute("href")==="#"+entry.target.id));}})},{rootMargin:"-18% 0px -70% 0px"});
+sections.forEach(section=>observer.observe(section));
+const sidebar=document.getElementById("sidebar"),menu=document.getElementById("menuToggle");
+menu.addEventListener("click",()=>{const open=sidebar.classList.toggle("open");menu.setAttribute("aria-expanded",String(open));menu.textContent=open?"×":"☰";});
+links.forEach(link=>link.addEventListener("click",()=>{sidebar.classList.remove("open");menu.setAttribute("aria-expanded","false");menu.textContent="☰";}));
+document.querySelectorAll("[data-copy]").forEach(button=>button.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(button.dataset.copy.replace(/&#10;/g,"\n"));button.textContent="COPIED";setTimeout(()=>button.textContent="COPY",1400);}catch{button.textContent="SELECT CODE";}}));
+const search=document.getElementById("docSearch"),results=document.getElementById("searchResults");
+const docs=[...document.querySelectorAll(".section[id]")].map(section=>({id:section.id,title:section.querySelector("h1,h2")?.textContent.trim()||section.id,summary:section.querySelector(".section-intro,.lead")?.textContent.trim()||""}));
+function searchDocs(){const q=search.value.trim().toLowerCase();if(!q){results.classList.remove("show");results.innerHTML="";return;}const found=docs.filter(doc=>(doc.title+" "+doc.summary+" "+doc.id).toLowerCase().includes(q));results.innerHTML=found.length?found.map(doc=>'<a href="#'+doc.id+'">'+doc.title+'<small>'+doc.summary.slice(0,76)+'</small></a>').join(""):'<a>Không tìm thấy tài liệu phù hợp.</a>';results.classList.add("show");}
+search.addEventListener("input",searchDocs);search.addEventListener("keydown",event=>{if(event.key==="Escape"){search.value="";results.classList.remove("show");}if(event.key==="Enter"){const first=results.querySelector("a[href]");if(first)location.hash=first.getAttribute("href");results.classList.remove("show");}});
+document.addEventListener("click",event=>{if(!event.target.closest(".search-wrap"))results.classList.remove("show");});
+document.addEventListener("keydown",event=>{if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==="k"){event.preventDefault();search.focus();}});
 </script>
 </body>
 </html>
