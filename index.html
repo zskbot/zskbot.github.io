@@ -1,396 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gezsk Ai — Tài liệu dự án</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08090b">
+<meta name="author" content="Huỳnh Thương — zskbot">
+<meta name="description" content="Huỳnh Thương Central Project Command Center — trung tâm danh mục và điều phối dự án mã nguồn của zskbot.">
+<title>Huỳnh Thương — Project Command Center</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#09090b;
-    --panel:#111113;
-    --line:#27272a;
-    --text-primary:#fafafa;
-    --text-muted:#a1a1aa;
-    --signal:#e4e4e7;
-    --warn:#a1a1aa;
-  }
-  body{ font-family:'Inter',sans-serif; background:var(--ink); color:var(--text-primary); overflow-x:hidden; }
-  .font-display{ font-family:'Space Grotesk',sans-serif; }
-  .font-mono{ font-family:'JetBrains Mono',monospace; }
-  ::-webkit-scrollbar{ width:4px; }
-  ::-webkit-scrollbar-track{ background:var(--ink); }
-  ::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
-
-  /* Signature element: circuit-pulse background on hero */
-  .circuit-bg{
-    background: radial-gradient(ellipse at 50% 0%, rgba(161,161,170,.08), transparent 68%);
-    mask-image: none;
-  }
-  .pulse-dot{
-    width:7px; height:7px; border-radius:9999px; background:var(--signal);
-    box-shadow:none; animation:none;
-  }
-  @media (prefers-reduced-motion: reduce){ .pulse-dot{ animation:none; } }
-  @keyframes pulse{
-    0%{ box-shadow:0 0 0 0 rgba(161,161,170,.18); }
-    70%{ box-shadow:0 0 0 8px rgba(161,161,170,0); }
-    100%{ box-shadow:0 0 0 0 rgba(161,161,170,0); }
-  }
-  .flow-dot{ animation:none; }
-  @media (prefers-reduced-motion: reduce){ .flow-dot{ animation:none; } }
-  
-  .searchable-item{ transition: opacity .15s ease; }
-  .searchable-item.is-hidden{ opacity:.15; pointer-events:none; }
-
-  /* Signature mark: ^_ — caret + terminal cursor, the project's glyph */
-  .mark-cursor{ animation:none; }
-  .mark-badge{ background:#18181b; }
-
-  /* Metric ticks for the scale section */
-  .tick-bar{ background:repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 8px); }
-
-  a:focus-visible, button:focus-visible, input:focus-visible{ outline:2px solid #a1a1aa; outline-offset:3px; border-radius:8px; }
-
-  /* v0-inspired layout refinements: neutral surfaces, calm spacing, no decorative rules */
-  body{ background:#09090b; }
-  header{ border-bottom-color:#27272a !important; }
-  #sidebar{ border-right-color:#27272a !important; }
-  main{ scroll-behavior:smooth; }
-  main section{ scroll-margin-top:90px; }
-  main .border{ border-color:#27272a !important; }
-  main [class*="rounded-lg"]{ border-radius:14px !important; }
-  main [class*="bg-[var(--panel)]"]{ background:#111113 !important; }
-  #searchInput{ border-radius:10px !important; border-color:#303036 !important; background:#111113 !important; }
-  @media(max-width:640px){
-    header{ padding-top:12px !important; padding-bottom:12px !important; }
-    main{ padding-top:28px !important; gap:48px !important; }
-    main h1{ font-size:clamp(1.8rem,8vw,2.4rem) !important; line-height:1.12 !important; }
-    main section .p-6{ padding:16px !important; }
-    #sidebar{ width:min(82vw,300px) !important; box-shadow:18px 0 60px rgba(0,0,0,.35); }
-  }
+:root{color-scheme:dark;--bg:#08090b;--panel:#101216;--panel2:#15181e;--line:#292d35;--text:#f4f5f7;--muted:#9299a5;--soft:#c2c7d0;--accent:#a7f36b;--blue:#8ab4ff;--danger:#ff8585}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min-height:100vh}button,input,select{font:inherit;border-radius:0}a{color:inherit;text-decoration:none}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.mono{font-family:"JetBrains Mono",monospace}.shell{max-width:1440px;margin:auto;padding:0 28px}.topbar{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:rgba(8,9,11,.94);backdrop-filter:blur(14px);z-index:20;padding:0 28px}.brand{display:flex;align-items:center;gap:12px}.brandmark{width:38px;height:38px;border:1px solid #626b78;display:grid;place-items:center;color:var(--accent);font:700 14px "JetBrains Mono";letter-spacing:-2px}.brandname{font-weight:700;letter-spacing:-.04em}.brandname small{display:block;color:var(--muted);font:10px "JetBrains Mono";letter-spacing:.12em;margin-top:2px}.top-actions{display:flex;gap:8px;align-items:center}.btn{border:1px solid var(--line);background:transparent;color:var(--soft);padding:10px 13px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:8px}.btn:hover{border-color:#747d8b;color:white;background:#15181e}.btn.primary{background:var(--accent);border-color:var(--accent);color:#10140d}.btn.primary:hover{background:#c0ff91}.hero{padding:58px 0 36px;display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:34px;align-items:end}.eyebrow{color:var(--accent);font:11px "JetBrains Mono";letter-spacing:.13em;text-transform:uppercase;display:flex;align-items:center;gap:9px}.pulse{width:7px;height:7px;background:var(--accent);box-shadow:0 0 14px #a7f36b88}.hero h1{font-size:clamp(38px,6vw,72px);line-height:.98;letter-spacing:-.075em;margin:18px 0 16px}.hero h1 span{color:var(--accent)}.hero p{color:var(--muted);font-size:15px;line-height:1.7;max-width:690px;margin:0}.founder{border:1px solid var(--line);padding:16px;display:flex;gap:14px;align-items:center;background:linear-gradient(145deg,#15191e,#0d0f12)}.founder img{width:64px;height:64px;object-fit:cover;border:1px solid #505762;filter:grayscale(12%)}.founder-label{font:10px "JetBrains Mono";color:var(--muted);letter-spacing:.12em}.founder strong{display:block;font-size:16px;margin:5px 0 3px}.founder a{font:10px "JetBrains Mono";color:var(--accent)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin:12px 0 38px}.metric{padding:19px 20px;border-right:1px solid var(--line)}.metric:last-child{border:0}.metric .value{font:600 27px "JetBrains Mono";letter-spacing:-.06em}.metric .label{font:10px "JetBrains Mono";color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:7px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:0 0 16px}.section-head h2{font-size:20px;letter-spacing:-.04em;margin:0}.section-head p{font-size:12px;color:var(--muted);margin:6px 0 0}.section-kicker{font:10px "JetBrains Mono";color:var(--accent);letter-spacing:.12em;margin-bottom:8px}.toolbar{display:flex;gap:8px;margin:18px 0 14px}.search{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);padding:12px 14px;color:var(--text);font-size:13px}.filter{background:var(--panel);border:1px solid var(--line);color:var(--soft);padding:0 12px;font-size:12px;min-width:130px}.tabs{display:flex;gap:6px;overflow:auto;padding-bottom:2px}.tab{border:1px solid var(--line);padding:8px 11px;background:transparent;color:var(--muted);white-space:nowrap;font:10px "JetBrains Mono"}.tab[aria-pressed=true]{background:#1b2516;border-color:#638d43;color:var(--accent)}.results-meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font:10px "JetBrains Mono";padding:13px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.project{border:1px solid var(--line);background:var(--panel);padding:17px;min-width:0;display:flex;flex-direction:column;min-height:190px;transition:border-color .15s,transform .15s}.project:hover{border-color:#626b78;transform:translateY(-2px)}.project-top{display:flex;justify-content:space-between;gap:12px;align-items:start}.repo-icon{width:31px;height:31px;border:1px solid #3a414c;display:grid;place-items:center;color:var(--accent);font:12px "JetBrains Mono";flex:none}.visibility{font:9px "JetBrains Mono";color:var(--muted);border:1px solid var(--line);padding:4px 6px}.project h3{font:600 14px "JetBrains Mono";margin:14px 0 7px;overflow-wrap:anywhere}.project p{font-size:12px;color:var(--muted);line-height:1.55;margin:0 0 14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:37px}.project-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--muted);font:10px "JetBrains Mono"}.project-foot span{white-space:nowrap}.repo-links{display:flex;gap:10px}.repo-links a{color:var(--soft)}.repo-links a:hover{color:var(--accent)}.lang-dot{width:7px;height:7px;display:inline-block;background:var(--blue);margin-right:5px}.empty,.loading{border:1px dashed var(--line);padding:40px;text-align:center;color:var(--muted);font:12px "JetBrains Mono";grid-column:1/-1}.loading:before{content:"";display:block;width:18px;height:18px;border:1px solid var(--line);border-top-color:var(--accent);margin:0 auto 14px;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.lower{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin:46px 0}.panel{border:1px solid var(--line);background:var(--panel);padding:20px}.panel h3{font-size:14px;margin:0 0 16px}.signature{font:12px "JetBrains Mono";color:var(--accent);line-height:1.9;overflow-wrap:anywhere}.signature small{display:block;color:var(--muted);font-size:10px;margin-top:8px}.quicklinks{display:grid;grid-template-columns:1fr 1fr;gap:8px}.quicklinks a{border:1px solid var(--line);padding:12px;color:var(--soft);font:10px "JetBrains Mono"}.quicklinks a:hover{border-color:var(--accent);color:var(--accent)}footer{border-top:1px solid var(--line);padding:23px 0 35px;color:var(--muted);font:10px "JetBrains Mono";display:flex;justify-content:space-between;gap:16px}.status{color:var(--accent)}.hidden{display:none!important}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr 250px}.lower{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.shell{padding:0 16px}.topbar{height:60px;padding:0 16px}.top-actions .btn:not(.primary){display:none}.brandmark{width:34px;height:34px}.hero{padding:39px 0 25px;grid-template-columns:1fr;gap:20px}.hero h1{font-size:48px}.founder{max-width:100%}.metrics{grid-template-columns:repeat(2,1fr);margin-bottom:30px}.metric{padding:14px;border-bottom:1px solid var(--line)}.metric:nth-child(2){border-right:0}.metric:nth-child(3),.metric:nth-child(4){border-bottom:0}.metric .value{font-size:23px}.section-head{align-items:start}.toolbar{flex-wrap:wrap}.search{flex-basis:100%}.filter{height:40px;flex:1}.tabs{margin-right:-16px;padding-right:16px}.grid{grid-template-columns:1fr}.project{min-height:172px}.lower{grid-template-columns:1fr;margin:34px 0}.quicklinks{grid-template-columns:1fr 1fr}footer{flex-direction:column}.section-head h2{font-size:18px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
-
-  <!-- TOP NAVIGATION -->
-  <header class="sticky top-0 z-50 w-full border-b border-[var(--line)] bg-[var(--ink)]/85 backdrop-blur-md px-4 sm:px-6 py-4 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <button id="menuToggle" class="md:hidden text-zinc-400 hover:text-white p-1" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="sidebar">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/></svg>
-      </button>
-      <svg class="w-8 h-8 text-[var(--signal)] mark-badge rounded-[9px]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Biểu tượng Gezsk Ai: dấu mũ và con trỏ terminal">
-        <rect x="6" y="6" width="88" height="88" rx="20" stroke="currentColor" stroke-width="6"/>
-        <path d="M32 46 L50 28 L68 46" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect class="mark-cursor" x="30" y="64" width="40" height="9" rx="2" fill="currentColor"/>
-      </svg>
-      <span class="text-lg font-display font-bold tracking-tight text-white">Gezsk Ai <span class="text-[var(--text-muted)] font-normal text-sm">/ docs</span></span>
+<body>
+<header class="topbar">
+  <a class="brand" href="#" aria-label="Huỳnh Thương Command Center">
+    <span class="brandmark">HT_</span><span class="brandname">HUỲNH THƯƠNG<small>PROJECT COMMAND CENTER / ZSKBOT</small></span>
+  </a>
+  <nav class="top-actions">
+    <a class="btn" href="https://github.com/zskbot" target="_blank" rel="noreferrer">GITHUB PROFILE ↗</a>
+    <button class="btn primary" id="refreshTop" type="button">↻ REFRESH DATA</button>
+  </nav>
+</header>
+<main class="shell">
+  <section class="hero">
+    <div>
+      <div class="eyebrow"><i class="pulse"></i> FOUNDER-LED DEVELOPMENT / 2026</div>
+      <h1>Build. Ship.<br><span>Coordinate.</span></h1>
+      <p>Trung tâm điều phối hệ sinh thái dự án của Huỳnh Thương. Một bảng điều khiển thống nhất để khám phá repository, theo dõi cấu trúc mã nguồn và truy cập nhanh các công cụ quản trị trên GitHub.</p>
     </div>
-
-    <div class="relative w-full max-w-[15rem] sm:max-w-xs hidden sm:block">
-      <input type="text" id="searchInput" placeholder="Tìm tài liệu... (Ctrl + K)"
-        class="w-full bg-[var(--panel)] border border-[var(--line)] rounded-md pl-9 pr-3 py-1.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-[var(--signal)] transition-colors">
-      <svg class="w-4 h-4 text-zinc-500 absolute left-3 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.604 10.604Z"/></svg>
-    </div>
-  </header>
-
-  <div class="flex flex-1 max-w-7xl w-full mx-auto relative min-w-0">
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="w-64 shrink-0 border-r border-[var(--line)] p-6 space-y-6 text-sm
-      fixed md:sticky top-[65px] md:top-[65px] left-0 h-[calc(100vh-65px)] bg-[var(--ink)] z-40
-      -translate-x-full md:translate-x-0 transition-transform duration-200 overflow-y-auto">
-      <div class="space-y-2">
-        <div class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider font-mono">Bắt đầu</div>
-        <a href="#introduction" class="block text-zinc-200 hover:text-white font-medium py-1">Giới thiệu</a>
-        <a href="#architecture" class="block text-zinc-400 hover:text-white py-1">Kiến trúc hệ thống</a>
-        <a href="#features" class="block text-zinc-400 hover:text-white py-1">Tính năng cốt lõi</a>
-      </div>
-      <div class="space-y-2">
-        <div class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider font-mono">Tích hợp</div>
-        <a href="#quickstart" class="block text-zinc-400 hover:text-white py-1">Thiết lập backend</a>
-        <a href="#security" class="block text-zinc-400 hover:text-white py-1">Bảo mật API key</a>
-        <a href="#integrations" class="block text-zinc-400 hover:text-white py-1">Đối tác &amp; tích hợp</a>
-      </div>
-      <div class="space-y-2">
-        <div class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider font-mono">Mở rộng</div>
-        <a href="#scale" class="block text-zinc-400 hover:text-white py-1">Quy mô &amp; hạ tầng</a>
-        <a href="#roadmap" class="block text-zinc-400 hover:text-white py-1">Lộ trình phát triển</a>
-      </div>
+    <aside class="founder">
+      <img src="https://avatars.githubusercontent.com/u/241179063?v=4" alt="Ảnh đại diện GitHub của người sáng lập Huỳnh Thương" loading="eager">
+      <div><div class="founder-label">FOUNDER / BUILDER</div><strong>Huỳnh Thương</strong><a href="https://github.com/zskbot" target="_blank" rel="noreferrer">@zskbot ↗</a></div>
     </aside>
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-30 hidden md:hidden"></div>
+  </section>
 
-    <!-- MAIN -->
-    <main class="flex-1 min-w-0 px-5 sm:px-8 md:px-12 py-10 space-y-16 max-w-3xl w-full">
-      <nav class="text-[13px] text-[var(--text-muted)] flex items-center gap-2 font-mono">
-        <span>Trên trang này</span><span>&rsaquo;</span><span class="text-zinc-200">Tổng quan dự án</span>
-      </nav>
+  <section class="metrics" aria-label="Thống kê hệ sinh thái">
+    <div class="metric"><div class="value" id="repoCount">—</div><div class="label">Public repositories</div></div>
+    <div class="metric"><div class="value" id="starsCount">—</div><div class="label">Total stars</div></div>
+    <div class="metric"><div class="value" id="forksCount">—</div><div class="label">Total forks</div></div>
+    <div class="metric"><div class="value" id="languageCount">—</div><div class="label">Languages detected</div></div>
+  </section>
 
-      <!-- HERO -->
-      <section id="introduction" class="searchable-item relative">
-        <div class="absolute inset-0 -z-10 circuit-bg opacity-40 h-64"></div>
-        <svg class="w-14 h-14 text-[var(--signal)] mark-badge rounded-[13px] mb-5" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="6" y="6" width="88" height="88" rx="20" stroke="currentColor" stroke-width="6"/>
-          <path d="M32 46 L50 28 L68 46" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-          <rect class="mark-cursor" x="30" y="64" width="40" height="9" rx="2" fill="currentColor"/>
-        </svg>
-        <div class="flex items-center gap-2 text-xs font-mono text-[var(--signal)] mb-4">
-          <span class="pulse-dot"></span> v1.0.0 · Bản phát hành đầu tiên
-        </div>
-        <h1 class="text-3xl sm:text-4xl font-display font-bold tracking-tight text-white mb-4">Gezsk Ai Workspace</h1>
-        <p class="text-[var(--text-muted)] text-[15px] leading-relaxed max-w-xl mb-2">
-          Không gian làm việc kết nối agent, skill và các API AI của bên thứ ba (ví dụ: Anthropic API) thông qua một backend trung gian —
-          để trình duyệt của người dùng không bao giờ cần biết đến API key thật.
-        </p>
-        <p class="text-zinc-600 text-[13px] font-mono">
-          Biểu tượng <span class="text-[var(--signal)]">^_</span> — điểm chèn lệnh đang chờ, ẩn dụ cho một hệ thống luôn sẵn sàng thực thi.
-        </p>
-      </section>
+  <section id="registry">
+    <div class="section-head">
+      <div><div class="section-kicker">01 / PROJECT REGISTRY</div><h2>Repository Directory</h2><p>Danh mục tự đồng bộ từ GitHub API công khai của tài khoản zskbot.</p></div>
+      <a class="btn" href="https://github.com/zskbot?tab=repositories" target="_blank" rel="noreferrer">ALL REPOSITORIES ↗</a>
+    </div>
+    <div class="toolbar">
+      <input class="search" id="search" type="search" placeholder="Tìm theo tên repo, mô tả hoặc ngôn ngữ..." autocomplete="off" aria-label="Tìm repository">
+      <select class="filter" id="sort" aria-label="Sắp xếp"><option value="updated">Mới cập nhật</option><option value="stars">Nhiều stars</option><option value="name">Tên A–Z</option><option value="created">Mới tạo</option></select>
+    </div>
+    <div class="tabs" id="filters" aria-label="Bộ lọc repository">
+      <button class="tab" data-filter="all" aria-pressed="true">ALL PROJECTS</button>
+      <button class="tab" data-filter="source" aria-pressed="false">SOURCE CODE</button>
+      <button class="tab" data-filter="web" aria-pressed="false">WEB / PAGES</button>
+      <button class="tab" data-filter="tools" aria-pressed="false">TOOLS / CLI</button>
+      <button class="tab" data-filter="docs" aria-pressed="false">DOCS / SKILLS</button>
+    </div>
+    <div class="results-meta"><span id="resultCount">ĐANG TẢI DANH MỤC…</span><span id="lastUpdated">SOURCE: API.GITHUB.COM</span></div>
+    <div class="grid" id="projects"><div class="loading">Đang đồng bộ repository công khai của zskbot…</div></div>
+  </section>
 
-      <!-- ARCHITECTURE -->
-      <section id="architecture" class="space-y-5">
-        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
-          <span class="w-1 h-3.5 bg-[var(--signal)] rounded-sm"></span> Kiến trúc hệ thống
-        </h2>
-        <p class="text-zinc-400 text-[14px] leading-relaxed">
-          Nguyên tắc cốt lõi: <span class="text-white">API key của bên thứ ba chỉ tồn tại trên server của bạn</span>, không bao giờ xuất hiện trong mã nguồn frontend, kể cả ở dạng comment hay biến ẩn.
-        </p>
-
-        <!-- signature: animated request flow diagram -->
-        <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-6">
-          <svg viewBox="0 0 600 120" class="w-full h-auto">
-            <defs>
-              <path id="flowPath" d="M 60 60 L 300 60 L 300 60 L 540 60" fill="none"/>
-            </defs>
-            <line x1="60" y1="60" x2="300" y2="60" stroke="#27272a" stroke-width="2"/>
-            <line x1="300" y1="60" x2="540" y2="60" stroke="#27272a" stroke-width="2"/>
-
-            <circle cx="60" cy="60" r="26" fill="#111113" stroke="#303036" stroke-width="2"/>
-            <text x="60" y="64" text-anchor="middle" fill="#e7eaf0" font-size="9" font-family="JetBrains Mono">Trình duyệt</text>
-
-            <rect x="270" y="34" width="60" height="52" rx="8" fill="#111113" stroke="#303036" stroke-width="2"/>
-            <text x="300" y="64" text-anchor="middle" fill="#e7eaf0" font-size="9" font-family="JetBrains Mono">Backend</text>
-
-            <circle cx="540" cy="60" r="26" fill="#111113" stroke="#a1a1aa" stroke-width="2"/>
-            <text x="540" y="58" text-anchor="middle" fill="#e7eaf0" font-size="8" font-family="JetBrains Mono">API</text>
-            <text x="540" y="69" text-anchor="middle" fill="#e7eaf0" font-size="8" font-family="JetBrains Mono">bên thứ 3</text>
-
-            <circle r="4" fill="#a1a1aa" style="offset-path:path('M 60 60 L 300 60'); offset-rotate:0deg;" class="flow-dot"/>
-            <circle r="4" fill="#a1a1aa" style="offset-path:path('M 300 60 L 540 60'); offset-rotate:0deg;" class="flow-dot" opacity="0"/>
-          </svg>
-          <p class="text-xs text-zinc-500 font-mono mt-2">Yêu cầu đi qua backend — API key (chấm màu hổ phách) chỉ di chuyển ở chặng phía trong, không bao giờ tới trình duyệt.</p>
-        </div>
-      </section>
-
-      <!-- FEATURES -->
-      <section id="features" class="space-y-5 searchable-item">
-        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
-          <span class="w-1 h-3.5 bg-[var(--signal)] rounded-sm"></span> Tính năng cốt lõi
-        </h2>
-        <p class="text-zinc-400 text-[14px] leading-relaxed">
-          Ba khối chức năng đứng độc lập nhưng chia sẻ chung một backend — mỗi khối mở rộng được riêng khi dự án lớn dần.
-        </p>
-        <div class="grid sm:grid-cols-3 gap-3">
-          <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4 space-y-2">
-            <svg class="w-4 h-4 text-[var(--signal)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23-.696L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
-            <h3 class="text-sm font-semibold text-white">Agent runtime</h3>
-            <p class="text-xs text-zinc-500 leading-relaxed">Điều phối nhiều agent chạy song song, mỗi agent gọi backend riêng để lấy kết quả từ mô hình AI.</p>
-          </div>
-          <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4 space-y-2">
-            <svg class="w-4 h-4 text-[var(--signal)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3M6 3.75h12a2.25 2.25 0 0 1 2.25 2.25v12a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6A2.25 2.25 0 0 1 6 3.75Z"/></svg>
-            <h3 class="text-sm font-semibold text-white">Thư viện skill</h3>
-            <p class="text-xs text-zinc-500 leading-relaxed">Skill được nạp theo yêu cầu, đóng gói quy trình lặp lại thay vì viết lại logic mỗi lần.</p>
-          </div>
-          <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4 space-y-2">
-            <svg class="w-4 h-4 text-[var(--signal)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 15.75h.007v.008H12v-.008Z"/></svg>
-            <h3 class="text-sm font-semibold text-white">Nhật ký &amp; giám sát</h3>
-            <p class="text-xs text-zinc-500 leading-relaxed">Mọi lệnh gọi đi qua backend đều được ghi log — theo dõi chi phí và lỗi theo thời gian thực.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- QUICKSTART -->
-      <section id="quickstart" class="space-y-4">
-        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
-          <span class="w-1 h-3.5 bg-white/70 rounded-sm"></span> Thiết lập backend (Node.js)
-        </h2>
-        <p class="text-zinc-400 text-[14px] leading-relaxed">Cài biến môi trường trên server — không đưa vào commit hay file public.</p>
-
-        <div class="bg-[#0f1116] border border-[var(--line)] rounded-lg overflow-hidden shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 border-b border-[var(--line)]">
-            <div class="flex gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-[#2c2c2c]"></span><span class="w-2 h-2 rounded-full bg-[#2c2c2c]"></span><span class="w-2 h-2 rounded-full bg-[#2c2c2c]"></span>
-            </div>
-            <span class="text-[11px] font-mono text-zinc-600">.env</span>
-          </div>
-          <div class="p-4 font-mono text-[13px] leading-relaxed relative overflow-x-auto">
-            <span id="codeToCopy" class="hidden">THIRD_PARTY_API_KEY=your_actual_key_here</span>
-            <p class="text-zinc-600 whitespace-nowrap pr-16"># Biến môi trường phía server, KHÔNG commit lên git</p>
-            <p class="whitespace-nowrap pr-16"><span class="text-[var(--signal)]">THIRD_PARTY_API_KEY</span>=<span class="text-amber-300">your_actual_key_here</span></p>
-            <button onclick="copyCodeFunction()" id="copyBtn" class="absolute top-4 right-4 bg-[#1a1a1a] hover:bg-zinc-800 text-zinc-400 hover:text-white px-2.5 py-1 rounded text-xs transition-all flex items-center gap-1 border border-[#262626]">
-              <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75"/></svg>
-              <span>Copy</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="bg-[#0f1116] border border-[var(--line)] rounded-lg overflow-hidden shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 border-b border-[var(--line)]">
-            <div class="flex gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-[#2c2c2c]"></span><span class="w-2 h-2 rounded-full bg-[#2c2c2c]"></span><span class="w-2 h-2 rounded-full bg-[#2c2c2c]"></span>
-            </div>
-            <span class="text-[11px] font-mono text-zinc-600">server.js</span>
-          </div>
-          <pre class="p-4 font-mono text-[12.5px] leading-relaxed text-zinc-300 overflow-x-auto"><span class="text-zinc-600">// Backend gọi API bên thứ 3 — key đọc từ biến môi trường</span>
-app.post(<span class="text-amber-300">'/api/chat'</span>, async (req, res) => {
-  <span class="text-purple-400">const</span> r = <span class="text-purple-400">await</span> fetch(<span class="text-amber-300">'https://api.example-provider.com/v1/messages'</span>, {
-    method: <span class="text-amber-300">'POST'</span>,
-    headers: { <span class="text-amber-300">'Authorization'</span>: <span class="text-amber-300">`Bearer ${process.env.THIRD_PARTY_API_KEY}`</span> },
-    body: JSON.stringify(req.body)
-  });
-  res.json(<span class="text-purple-400">await</span> r.json());
-});</pre>
-        </div>
-      </section>
-
-      <!-- SECURITY -->
-      <section id="security" class="space-y-3 searchable-item">
-        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
-          <span class="w-1 h-3.5 bg-[var(--warn)] rounded-sm"></span> Bảo mật API key
-        </h2>
-        <ul class="text-zinc-400 text-[14px] leading-relaxed list-disc list-inside space-y-1.5">
-          <li>Không bao giờ đặt key thật trong HTML, JS phía client, hay commit git.</li>
-          <li>Luôn gọi API bên thứ 3 từ backend, trả kết quả về client qua endpoint riêng.</li>
-          <li>Dùng biến môi trường (<code class="font-mono text-zinc-300">.env</code>) và thêm vào <code class="font-mono text-zinc-300">.gitignore</code>.</li>
-          <li>Xoay vòng (rotate) key ngay nếu nghi ngờ bị lộ.</li>
-        </ul>
-      </section>
-
-      <!-- INTEGRATIONS -->
-      <section id="integrations" class="space-y-4">
-        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
-          <span class="w-1 h-3.5 bg-white/50 rounded-sm"></span> Đối tác &amp; tích hợp
-        </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono text-xs">
-          <div class="border border-[var(--line)] bg-[#0a0c10] p-3 rounded searchable-item">
-            <span class="text-white block font-medium">Anthropic API</span>
-            <span class="text-[var(--signal)] text-[10px] mt-2 block">Đã kết nối (backend)</span>
-          </div>
-          <div class="border border-[var(--line)] bg-[#0a0c10] p-3 rounded searchable-item">
-            <span class="text-white block font-medium">VS Code</span>
-            <span class="text-zinc-500 text-[10px] mt-2 block">Sẵn sàng</span>
-          </div>
-          <div class="border border-[var(--line)] bg-[#0a0c10] p-3 rounded searchable-item">
-            <span class="text-white block font-medium">GitHub</span>
-            <span class="text-zinc-500 text-[10px] mt-2 block">Chưa kết nối</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- SCALE -->
-      <section id="scale" class="space-y-5 searchable-item">
-        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
-          <span class="w-1 h-3.5 bg-[var(--signal)] rounded-sm"></span> Quy mô &amp; hạ tầng
-        </h2>
-        <p class="text-zinc-400 text-[14px] leading-relaxed">
-          Backend trung gian được thiết kế để đứng vững khi số agent tăng lên — không đổi kiến trúc, chỉ thêm tài nguyên.
-        </p>
-        <div class="grid grid-cols-3 gap-3">
-          <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4">
-            <div class="text-2xl font-display font-bold text-white">1</div>
-            <div class="text-[11px] text-zinc-500 font-mono mt-1">backend, nhiều agent</div>
-          </div>
-          <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4">
-            <div class="text-2xl font-display font-bold text-white">0</div>
-            <div class="text-[11px] text-zinc-500 font-mono mt-1">API key lộ ra client</div>
-          </div>
-          <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4">
-            <div class="text-2xl font-display font-bold text-white">&infin;</div>
-            <div class="text-[11px] text-zinc-500 font-mono mt-1">agent mở rộng theo hàng ngang</div>
-          </div>
-        </div>
-        <div class="border border-[var(--line)] bg-[var(--panel)] rounded-lg p-4">
-          <div class="tick-bar h-2 rounded-full mb-3"></div>
-          <p class="text-xs text-zinc-500 leading-relaxed font-mono">Mỗi tick = một request được backend trung chuyển. Không có giới hạn cứng — chỉ giới hạn theo hạn mức của nhà cung cấp API và cấu hình rate-limit bạn đặt.</p>
-        </div>
-      </section>
-
-      <!-- ROADMAP -->
-      <section id="roadmap" class="space-y-4 searchable-item">
-        <h2 class="text-lg font-display font-semibold text-white flex items-center gap-2">
-          <span class="w-1 h-3.5 bg-white/50 rounded-sm"></span> Lộ trình phát triển
-        </h2>
-        <ol class="space-y-3">
-          <li class="flex gap-3 items-start">
-            <span class="font-mono text-[11px] text-[var(--signal)] border border-[var(--signal)]/40 rounded px-1.5 py-0.5 mt-0.5 shrink-0">v1.0</span>
-            <span class="text-zinc-400 text-[14px] leading-relaxed"><span class="text-white">Backend trung gian ổn định</span> — proxy API key, endpoint chat cơ bản.</span>
-          </li>
-          <li class="flex gap-3 items-start">
-            <span class="font-mono text-[11px] text-zinc-500 border border-[var(--line)] rounded px-1.5 py-0.5 mt-0.5 shrink-0">v1.1</span>
-            <span class="text-zinc-400 text-[14px] leading-relaxed"><span class="text-white">Đa agent song song</span> — hàng đợi request, giới hạn tốc độ theo từng agent.</span>
-          </li>
-          <li class="flex gap-3 items-start">
-            <span class="font-mono text-[11px] text-zinc-500 border border-[var(--line)] rounded px-1.5 py-0.5 mt-0.5 shrink-0">v1.2</span>
-            <span class="text-zinc-400 text-[14px] leading-relaxed"><span class="text-white">Bảng điều khiển giám sát</span> — chi phí, độ trễ và tỉ lệ lỗi theo thời gian thực.</span>
-          </li>
-        </ol>
-      </section>
-
-      <footer class="pt-8 border-t border-[var(--line)] text-xs text-[var(--text-muted)] space-y-1">
-        <p>&copy; 2026 Gezsk Ai. Phiên bản: <span class="text-[var(--signal)]">v1.0.0</span></p>
-        <p>Đây là bản phát hành đầu tiên — sẽ cập nhật dần theo phản hồi.</p>
-      </footer>
-    </main>
-  </div>
-
+  <section class="lower">
+    <div class="panel">
+      <div class="section-kicker">02 / FOUNDER CODE</div>
+      <h3>Code Signature &amp; Identity</h3>
+      <div class="signature">/* ----------------------------------<br>   HUỲNH THƯƠNG / FOUNDER<br>   GITHUB : github.com/zskbot<br>   ROLE   : BUILDER · ENGINEER<br>   MOTTO  : BUILD WITH PURPOSE<br>   SIGN   : HT::ZSKBOT::CORE<br>---------------------------------- */<small>FOUNDER SIGNATURE · PROJECT IDENTITY · 2026</small></div>
+    </div>
+    <div class="panel">
+      <div class="section-kicker">03 / OPERATIONS</div>
+      <h3>Management Shortcuts</h3>
+      <div class="quicklinks">
+        <a href="https://github.com/zskbot" target="_blank" rel="noreferrer">ACCOUNT OVERVIEW ↗</a>
+        <a href="https://github.com/notifications" target="_blank" rel="noreferrer">NOTIFICATIONS ↗</a>
+        <a href="https://github.com/zskbot?tab=repositories" target="_blank" rel="noreferrer">REPOSITORIES ↗</a>
+        <a href="https://github.com/settings/profile" target="_blank" rel="noreferrer">PROFILE SETTINGS ↗</a>
+        <a href="https://github.com/issues" target="_blank" rel="noreferrer">ISSUES ↗</a>
+        <a href="https://github.com/pulls" target="_blank" rel="noreferrer">PULL REQUESTS ↗</a>
+      </div>
+    </div>
+  </section>
+  <footer><span>© 2026 HUỲNH THƯƠNG · FOUNDER &amp; BUILDER</span><span>HT::ZSKBOT::CORE / <b class="status" id="syncStatus">CONNECTING</b></span></footer>
+</main>
 <script>
-  // Copy — nội dung hiển thị và nội dung copy giờ khớp nhau tuyệt đối
-  function copyCodeFunction(){
-    const codeText = document.getElementById("codeToCopy").innerText;
-    navigator.clipboard.writeText(codeText).then(() => {
-      const btn = document.getElementById("copyBtn");
-      const original = btn.innerHTML;
-      btn.innerHTML = "<span>&check; Copied</span>";
-      btn.classList.add("bg-emerald-950","text-emerald-400","border-emerald-800");
-      setTimeout(() => {
-        btn.innerHTML = original;
-        btn.classList.remove("bg-emerald-950","text-emerald-400","border-emerald-800");
-      }, 2000);
-    });
-  }
-
-  // Tìm kiếm — ẩn hẳn phần tử không khớp thay vì chỉ làm mờ
-  const searchInput = document.getElementById('searchInput');
-  if (searchInput){
-    searchInput.addEventListener('keyup', () => {
-      const q = searchInput.value.toLowerCase();
-      document.querySelectorAll('.searchable-item').forEach(item => {
-        item.classList.toggle('is-hidden', q.length > 0 && !item.innerText.toLowerCase().includes(q));
-      });
-    });
-  }
-
-  // Sidebar mobile
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('sidebarOverlay');
-  const toggle = document.getElementById('menuToggle');
-  function closeSidebar(){
-    sidebar.classList.add('-translate-x-full');
-    overlay.classList.add('hidden');
-    toggle.setAttribute('aria-expanded','false');
-  }
-  function openSidebar(){
-    sidebar.classList.remove('-translate-x-full');
-    overlay.classList.remove('hidden');
-    toggle.setAttribute('aria-expanded','true');
-  }
-  toggle.addEventListener('click', () => {
-    sidebar.classList.contains('-translate-x-full') ? openSidebar() : closeSidebar();
-  });
-  overlay.addEventListener('click', closeSidebar);
-  sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', closeSidebar));
+const API="https://api.github.com/users/zskbot/repos?type=owner&sort=updated&per_page=100&page=";
+let repositories=[];let activeFilter="all";
+const $=id=>document.getElementById(id);
+const esc=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function category(repo){const s=(repo.name+" "+(repo.description||"")).toLowerCase();if(/docs|documentation|skill|guide|wiki/.test(s))return"docs";if(/cli|tool|terminal|sdk|action|agent|runner/.test(s))return"tools";if(/\.github\.io$|pages|website|web|site|dashboard/.test(s))return"web";return"source"}
+function render(){
+ const q=$("search").value.trim().toLowerCase();const sort=$("sort").value;
+ let list=repositories.filter(r=>{const hay=(r.name+" "+(r.description||"")+" "+(r.language||"")).toLowerCase();return(!q||hay.includes(q))&&(activeFilter==="all"||category(r)===activeFilter)});
+ list.sort((a,b)=>sort==="stars"?b.stargazers_count-a.stargazers_count:sort==="name"?a.name.localeCompare(b.name):sort==="created"?new Date(b.created_at)-new Date(a.created_at):new Date(b.updated_at)-new Date(a.updated_at));
+ $("resultCount").textContent=list.length+" / "+repositories.length+" REPOSITORIES";
+ $("projects").innerHTML=list.length?list.map(r=>'<article class="project"><div class="project-top"><span class="repo-icon">'+esc(r.name.slice(0,2).toUpperCase())+'</span><span class="visibility">'+(r.fork?"FORK":"PUBLIC")+'</span></div><h3>'+esc(r.name)+'</h3><p>'+esc(r.description||"Chưa có mô tả repository.")+'</p><div class="project-foot"><span>'+(r.language?'<i class="lang-dot"></i>'+esc(r.language):"SOURCE REPOSITORY")+' · ★ '+r.stargazers_count+' ·⑂ '+r.forks_count+'</span><span class="repo-links"><a href="'+esc(r.html_url)+'" target="_blank" rel="noreferrer" aria-label="Mở repository">REPO ↗</a><a href="'+esc(r.html_url)+'/actions" target="_blank" rel="noreferrer">CI ↗</a></span></div></article>').join(""):'<div class="empty">KHÔNG TÌM THẤY REPOSITORY PHÙ HỢP.</div>';
+}
+async function loadRepos(){
+ $("syncStatus").textContent="SYNCING";$("projects").innerHTML='<div class="loading">Đang đồng bộ repository công khai của zskbot…</div>';
+ try{
+  let all=[],page=1;
+  while(page<=10){const response=await fetch(API+page,{headers:{"Accept":"application/vnd.github+json"}});if(!response.ok)throw new Error("GitHub API HTTP "+response.status);const batch=await response.json();if(!Array.isArray(batch))throw new Error("Invalid API response");all=all.concat(batch);if(batch.length<100)break;page++;}
+  repositories=all.filter(r=>!r.archived);
+  $("repoCount").textContent=repositories.length;
+  $("starsCount").textContent=repositories.reduce((n,r)=>n+r.stargazers_count,0);
+  $("forksCount").textContent=repositories.reduce((n,r)=>n+r.forks_count,0);
+  $("languageCount").textContent=new Set(repositories.map(r=>r.language).filter(Boolean)).size;
+  $("lastUpdated").textContent="SYNCED "+new Date().toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"});
+  $("syncStatus").textContent="LIVE / PUBLIC API";render();
+ }catch(error){$("syncStatus").textContent="API UNAVAILABLE";$("projects").innerHTML='<div class="empty">Không thể tải danh mục từ GitHub API lúc này. Hãy thử REFRESH DATA hoặc mở <a href="https://github.com/zskbot?tab=repositories" target="_blank" rel="noreferrer">danh sách repository ↗</a> trực tiếp.</div>';$("resultCount").textContent="SYNC FAILED";}
+}
+$("search").addEventListener("input",render);$("sort").addEventListener("change",render);
+$("filters").addEventListener("click",event=>{const button=event.target.closest("button[data-filter]");if(!button)return;activeFilter=button.dataset.filter;document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-pressed",String(t===button)));render();});
+$("refreshTop").addEventListener("click",loadRepos);loadRepos();
 </script>
 </body>
 </html>
