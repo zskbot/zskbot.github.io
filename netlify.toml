@@ -8,3 +8,8 @@
 # Pull-request Deploy Previews publish the same static artifact.
 [context.deploy-preview]
   publish = "public"
+
+# Never publish the Production context from this repository.
+# Pull requests remain eligible for Deploy Preview builds.
+[context.production]
+  ignore = "exit 0"
